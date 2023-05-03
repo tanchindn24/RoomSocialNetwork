@@ -1,400 +1,374 @@
-@extends('layouts.master')
+@extends('layouts.home.master')
 @section('content')
-<div class="gap"></div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-8">
-			<h1 class="entry-title entry-prop">Đăng tin</h1>
-			<hr>
-			<div class="panel panel-default">
-				<div class="panel-heading">Thông tin bắt buộc*</div>
-				<div class="panel-body">
-					<div class="gap"></div>
-					@if ($errors->any())
-					<div class="alert alert-danger">
-						<ul>
-							@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
-							@endforeach
-						</ul>
-					</div>
-					@endif
-					@if(session('warn'))
-          <div class="alert bg-danger">
-            <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-            <span class="text-semibold">Lỗi!</span>  {{session('warn')}}
-          </div>
-          @endif
-          @if(session('success'))
-					<div class="alert bg-success">
-						<button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-						<span class="text-semibold">Ok nhé!</span>  {{session('success')}}
-					</div>
-					@endif
-          @if(Auth::user()->tinhtrang != 0)
-					<form action="{{ route ('user.dangtin') }}" method="POST" enctype="multipart/form-data" >
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<div class="form-group">
-							<label for="usr">Tiêu đề bài đăng:</label>
-							<input type="text" class="form-control" name="txttitle">
-						</div>
-						<div class="form-group">
-							<label>Địa chỉ:</label> Bạn có thể nhập hoặc chọn ví trí trên bản đồ
-							<input type="text" id="txtaddress" name="txtaddress" class="form-control" value="" placeholder="Nhập địa chỉ" />
-              <p><i class="far fa-bell"></i> Nếu địa chỉ hiển thị bên bản đồ không đúng bạn có thể điều chỉnh bằng cách kéo điểm màu xanh trên bản đồ tới vị trí chính xác.</p>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="usr">Giá phòng( vnđ ):</label>
-                  <input type="text" id="" name="txtprice" class="form-control" placeholder="Nhập giá phòng.." >
+    {{--  Preview media  --}}
+    {{--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" crossorigin="anonymous">--}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
+    <link href="/public/assets/krajee-jquery-multi-media/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
+    <link href="/public/assets/krajee-jquery-multi-media/themes/explorer-fa5/theme.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/plugins/buffer.min.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/plugins/filetype.min.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/plugins/piexif.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/plugins/sortable.js" type="text/javascript"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/fileinput.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/vi.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/locales/fr.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/js/locales/es.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/themes/fa5/theme.js" type="text/javascript"></script>
+    <script src="/public/assets/krajee-jquery-multi-media/themes/explorer-fa5/theme.js" type="text/javascript"></script>
+    <main class="main mx-5">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/" rel="nofollow"><i class="fi-rs-home mr-5"></i>Trang chủ</a>
+                    <span></span> Đăng tin cho thuê
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="usr">Diện tích( m<sup>2</sup> ):</label>
-                  <input type="number" name="txtarea" class="form-control" placeholder="Nhập diện tích">
-                </div>
-              </div>
             </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="usr">Quận/ Huyện:</label>
-                  <select class="selectpicker pull-right" data-live-search="true" name="iddistrict">
-                    @foreach($district as $quan)
-                    <option data-tokens="{{$quan->slug}}" value="{{ $quan->id }}">{{ $quan->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="usr">Danh mục:</label>
-                  <select class="selectpicker pull-right" data-live-search="true" class="form-control" name="idcategory"> 
-                    @foreach($categories as $category)
-                    <option data-tokens="{{$category->slug}}" value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="usr">SĐT Liên hệ:</label>
-                  <input type="text" name="txtphone" class="form-control" placeholder="SĐT liên hệ..">
-                </div>
-              </div>
-            </div> 
-            <div class="form-group">
-              <!-- ************** Max Items Demo ************** -->
-              <label>Các tiện ích:</label>
-              <select id="select-state" name="tienich[]" multiple class="demo-default" placeholder="Chọn các tiện ích phòng trọ">
-                <option value="Wifi miễn phí">Wifi miễn phí</option>
-                <option value="Có gác lửng">Có gác lửng</option>
-                <option value="Tủ + giường">Tủ + giường</option>
-                <option value="Không chung chủ">Không chung chủ</option>
-                <option value="Chung chủ" >Chung chủ</option>
-                <option value="Giờ giấc tự do">Giờ giấc tự do</option>
-                <option value="Vệ sinh riêng">Vệ sinh riêng</option>
-                <option value="Vệ sinh chung">Vệ sinh chung</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="comment">Thông tin mô tả:</label>
-              <textarea class="form-control" rows="5" name="txtdescription" style=" resize: none;"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="comment">Thêm hình ảnh:</label>
-              <div class="file-loading">
-                <input id="file-5" type="file" class="file" name="hinhanh[]" multiple data-preview-file-type="any" data-upload-url="#">
-              </div>
-            </div>
-            <button class="btn btn-primary">Đăng Tin</button>
-          </form>
-          @else
-          <div class="alert bg-danger">
-            <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
-            <span class="text-semibold">Lỗi!</span>  Tài khoản của bạn đang bị khóa đăng tin.
-          </div>
-          @endif
         </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-     <div class="contactpanel">
-      <div class="row">
-       <div class="col-md-4 text-center">
-        <img src="public/uploads/avatars/{{ Auth::user()->avatar }}" class="img-circle" alt="Cinque Terre" width="100" height="100"> 
-      </div>
-      <div class="col-md-8">
-        <h4>Thông tin người đăng</h4>
-        <strong> {{ Auth::user()->name }}</strong><br>
-        <i class="far fa-clock"></i> Ngày tham gia: {{ Auth::user()->created_at }}	
+        <div class="container mb-80 mt-50">
+            <div class="row">
+                <div class="col-lg-8 mb-40">
+                    <h2 class="heading-2 mb-10">Đăng tin cho thuê</h2>
+                    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+                    <div class="d-flex justify-content-between">
+                        <h6 class="text-body">đăng tin cho thuê phòng trọ của bạn <span class="text-brand">tại đây</span></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="border p-20 cart-totals mb-20">
+                        <div class="d-flex align-items-end justify-content-between mb-30">
+                            <h6>Thông tin người đăng</h6>
+                        </div>
+                        <div class="divider-2 mb-20"></div>
+                        <div class="table-responsive order_table checkout">
+                            <table class="table no-border">
+                                <tbody>
+                                <tr>
+                                    <td class="image product-thumbnail"><img src="/public/assets/back-end/imgs/avatar/{{Auth::user()->avatar}}" alt="#"></td>
+                                    <td>
+                                        <h6 class="w-160 mb-5"><a class="text-heading">{{Auth::user()->name}}</a></h6>
+                                        <div class="product-rate-cover">
+                                            <span>Ngày tham gia: {{date('d/m/Y', strtotime(Auth::user()->created_at))}}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <form action="{{route('dangtinphong')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <lable>
+                                        Tiêu đề bài đăng
+                                        <span class="required">*</span>
+                                    </lable>
+                                    <input type="text" name="tieude">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <lable>
+                                        Số điện thoại
+                                        <span class="required">*</span>
+                                    </lable>
+                                    <input type="number" name="sodienthoai">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-lg-6">
+                                    <lable>
+                                        Diện tích
+                                        <span class="required">m2</span>
+                                    </lable>
+                                    <input type="text" name="dientich">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <lable>
+                                        Giá
+                                        <span class="required">VND</span>
+                                    </lable>
+                                    <input type="text" name="gia">
+                                </div>
+                            </div>
+                            <div class="row shipping_calculator">
+                                <div class="form-group col-lg-6">
+                                    <lable>
+                                        Danh mục
+                                        <span class="required">*</span>
+                                    </lable>
+                                    <div class="custom_select">
+                                        <select class="form-control select-active" name="danhmuc">
+                                            <optgroup label="--Chọn loại phòng--"></optgroup>
+                                            @foreach($list as $list)
+                                            <option value="{{$list->id}}">{{$list->loai}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <lable>
+                                        Quận huyện
+                                        <span class="required">*</span>
+                                    </lable>
+                                    <div class="custom_select">
+                                        <select class="form-control select-active" name="quanhuyen">
+                                            <option value="">Chọn quận huyện</option>
+                                            <option value="VN">Liên chiểu</option>
+                                            <option value="VN">Sơn trà</option>
+                                            <option value="VN">Ngũ Hành Sơn</option>
+                                            <option value="VN">Cẩm lệ</option>
+                                            <option value="VN">Thanh khê</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <lable>
+                                        Địa chỉ phòng trọ: (Bạn có thể nhập hoặc chọn vị trí trên bản đồ)
+                                        <span class="required">*</span>
+                                    </lable>
+                                    <input type="text" name="diachi"/>
+                                    {{-- <input type="text" id="location-text" name="diachi" value=""/>
+                                    <input type="hidden" id="diachi" name="diachi" value="" />
+                                    <input type="hidden" id="txt_lat" name="kinhdo" value="" />
+                                    <input type="hidden" id="txt_lng" name="vido" value="" />
+                                    --}}
+                                </div>
+                            </div>
+{{--                                <div id="map-canvas" style="width:auto; height: 400px"></div>--}}
+                            <div class="row shipping_calculator">
+                                <div class="form-group">
+                                    <lable>
+                                        Tiện tích
+                                        <span class="required">*</span>
+                                    </lable>
+                                    <div class="custom_select">
+                                        <select class="form-control select-active" multiple name="tienich[]">
+                                            <option value="Không">Không</option>
+                                            <option value="Trọ có điều hòa">Trọ có điều hòa</option>
+                                            <option value="Có nơi để xe">Có nơi để xe</option>
+                                            <option value="Gác lửng">Gác lửng</option>
+                                            <option value="Tủ + giường">Tủ + giường</option>
+                                            <option value="Giờ giấc tự do">Giờ giấc tự do</option>
+                                            <option value="Wifi">Wifi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-30">
+                                <lable>
+                                    Mô tả ngắn:
+                                    <span class="required">*</span>
+                                </lable>
+                                <textarea rows="5" name="mota"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <lable>
+                                    Thêm hình ảnh
+                                    <span class="required">*</span>
+                                    <div class="file-loading">
+                                        <input id="file-load-preview" type="file" class="file" multiple name="hinhanh[]">
+                                    </div>
+                                </lable>
 
-      </div>
-    </div>
-  </div>
-  <div class="gap"></div>
-</div>
-</div>
-</div>
-<script type="text/javascript">
-$("input[id='formatnumber']").on({
-    keyup: function() {
-      formatCurrency($(this));
-    },
-    blur: function() { 
-      formatCurrency($(this), "blur");
-    }
-});
-function formatNumber(n) {
-  // format number 1000000 to 1,234,567
-  return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-}
-function formatCurrency(input, blur) {
-  // appends $ to value, validates decimal side
-  // and puts cursor back in right position.
-  // get input value
-  var input_val = input.val();
-  // don't validate empty input
-  if (input_val === "") { return; }
-  // original length
-  var original_len = input_val.length;
-  // initial caret position 
-  var caret_pos = input.prop("selectionStart");
-  // check for decimal
-  if (input_val.indexOf(".") >= 0) {
-    // get position of first decimal
-    // this prevents multiple decimals from
-    // being entered
-    var decimal_pos = input_val.indexOf(".");
-    // split number by decimal point
-    var left_side = input_val.substring(0, decimal_pos);
-    var right_side = input_val.substring(decimal_pos);
-    // add commas to left side of number
-    left_side = formatNumber(left_side);
-    // validate right side
-    right_side = formatNumber(right_side);
-    // On blur make sure 2 numbers after decimal
-    if (blur === "blur") {
-      right_side += "00";
-    }
-    // Limit decimal to only 2 digits
-    right_side = right_side.substring(0, 2);
-    // join number by .
-    input_val =  left_side + "." + right_side;
-  } else {
-    // no decimal entered
-    // add commas to number
-    // remove all non-digits
-    input_val = formatNumber(input_val);
-    input_val = input_val;
-    // final formatting
-    if (blur === "blur") {
-      input_val += "";
-    }
-  }
-  // send updated string to input
-  input.val(input_val);
-  // put caret back in the right position
-  var updated_len = input_val.length;
-  caret_pos = updated_len - original_len + caret_pos;
-  input[0].setSelectionRange(caret_pos, caret_pos);
-}
-</script>
-<script type="text/javascript">
-  $('#file-5').fileinput({
-    theme: 'fa',
-    language: 'vi',
-    showUpload: false,
-    allowedFileExtensions: ['jpg', 'png', 'gif']
-  });
-</script>
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBW6mnr2uV6B9H9kFlkECWsbcX3ZLrmh_gE&callback=initialize&libraries=geometry,places" async defer>
-</script>
-{{--<script>--}}
-{{--goongjs.accessToken = 'SRtuCtj7sVvYjjS59n4WJIaHoNoERcaZ8XYopWQZ';--}}
-{{--var map = new goongjs.Map({--}}
-{{--  container: 'map',--}}
-{{--  style: 'https://tiles.goong.io/assets/goong_map_web.json', // stylesheet location--}}
-{{--  center: [108.2053320454115, 16.05425959957465], // starting position [lng, lat]--}}
-{{--  zoom: 10 // starting zoom--}}
-{{--});--}}
-{{--</script>--}}
-<script>
-  var map;
-  var marker;
-  function initialize() {
-    var mapOptions = {
-      center: {lat: 21.034031, lng: 105.814262},
-      zoom: 12
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+                            </div>
+                            <button type="submit" class="btn btn-fill-out btn-block mt-30">Đăng tin<i class="fi-rs-sign-out ml-15"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $('#file-load-preview').fileinput({
+                theme: 'fa5',
+                language: 'vi',
+                browseClass: "btn btn-primary",
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                'uploadUrl': '#',
+                allowedFileExtensions: ['jpg', 'png', 'gif'],
+            }).on('filebatchpreupload', function(e, data) {
+                return {
+                    message: 'Vui lòng load lại trang và nhấn vào nút đăng tin',
+                    data: data
+                }
+            });
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0vUzjSBpugpcJajv7emHms7iNlYOh6JQ&callback=initialize&libraries=geometry,places" async defer>
+        </script>
+        <script>
+            var map;
+            var marker;
+            function initialize() {
+                 mapOptions = {
+                     // kinh độ vĩ độ
+                     center: {lat: 16.072188, lug: 108.227030},
+                     zoom :12,
+                 };
+                 map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
 
-  // Get GEOLOCATION
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-        position.coords.longitude);
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({
-        'latLng': pos
-      }, function (results, status) {
-        if (status ==
-          google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            console.log(results[0].formatted_address);
-          } else {
-            console.log('No results found');
-          }
-        } else {
-          console.log('Geocoder failed due to: ' + status);
-        }
-      });
-      map.setCenter(pos);
-      marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-        draggable: true
-      });
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
+                 // get Geometry Location
+                if(navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = new google.maps.LatLng(position.coords.latitude,
+                            position.coords.longitude);
+                        var geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({
+                            'latlng': pos
+                        }, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (results[0]) {
+                                    console.log(results[0].formatted_address);
+                                } else {
+                                    console.log('Khong tim thay ket qua');
+                                }
+                            } else {
+                                console.log('Loi Geocoder ly do: ' + status);
+                            }
+                        });
+                        map.getCenter(pos);
+                        marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            draggable: true,
+                        });
+                    }, function () {
+                        handleNoGeolocation(true);
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleNoGeolocation(false);
+                }
 
-  function handleNoGeolocation(errorFlag) {
-    if (errorFlag) {
-      var content = 'Error: The Geolocation service failed.';
-    } else {
-      var content = 'Error: Your browser doesn\'t support geolocation.';
-    }
+                function handleNoGeolocation(errorFlag) {
+                   if (errorFlag) {
+                       var content = 'Error: Dinh vi that bai.';
+                   } else {
+                       var content = 'Error: Trinh duyet cua ban khong ho tro dinh vi.'
+                   }
 
-    var options = {
-      map: map,
-      zoom: 19,
-      position: new google.maps.LatLng(21.034031,105.814262),
-      content: content
-    };
+                   var options = {
+                       map: map,
+                       zoom: 20,
+                       position: new google.maps.LatLng(16.072188,108.227030),
+                       content: content,
+                   };
 
-    map.setCenter(options.position);
-    marker = new google.maps.Marker({
-      position: options.position,
-      map: map,
-      zoom: 19,
-      icon: "images/gps.png",
-      draggable: true
-    });
-    /* Dragend Marker */
-    google.maps.event.addListener(marker, 'dragend', function() {
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            $('#location-text-box').val(results[0].formatted_address);
-            $('#txtaddress').val(results[0].formatted_address);
-            $('#txtlat').val(marker.getPosition().lat());
-            $('#txtlng').val(marker.getPosition().lng());
-            infowindow.setContent(results[0].formatted_address);
-            infowindow.open(map, marker);
-          }
-        }
-      });
-    });
-    /* End Dragend */
+                   map.setCenter(options.position);
+                   marker = new google.maps.Marker({
+                       position: options.position,
+                       map: map,
+                       zoom: 20,
+                       icon: "/public/assets/images/location.png",
+                       draggable: true
+                   });
+                   /* Đánh dấu vị trí
+                   * The dragend event kích hoạt khi kết thúc thao tác kéo (bằng cách nhả nút chuột hoặc nhấn phím thoát). */
+                    google.maps.event.addListener(marker, 'dragend', function () {
+                        var geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({'latlng': marker.getPosition()}, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (results[0]) {
+                                    $('#location-text').val(results[0].formatted_address);
+                                    $('#diachi').val(results[0].formatted_address);
+                                    $('#txt_lat').val(marker.getPosition().lat());
+                                    $('#txt_lng').val(marker.getPosition().lat());
+                                    infowindow.setContent(results[0].formatted_address);
+                                    infowindow.open(map, marker);
+                                }
+                            }
+                        });
+                    });
+                    /* Kết thúc event Dragend bắt thông tin vị trí */
+                }
+                var input = (document.getElementById('location-text'));
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                autocomplete.bindTo('bounds', map);
+                var infowindow = new google.maps.InfoWindow();
+                marker = new google.maps.Marker({
+                    map: map,
+                    icon: "/public/assets/images/location.png",
+                    anchorPoint: new google.maps.Point(0, -29),
+                    draggable: true,
+                });
 
-  }
+                google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    infowindow.close();
+                    marker.setVisible(false);
+                    var place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        return;
+                    }
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({'latlng': place.geometry.location}, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[0]) {
+                                $('#diachi').val(results[0].formatted_address);
+                                infowindow.setContent(results[0].formatted_address);
+                                infowindow.open(map, marker);
+                            }
+                        }
+                    });
+                    // Nếu địa chỉ nhập vào có thì hiển thị trên bản đồ
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.fitBounds(place.geometry.location);
+                        map.setZoom(17);
+                    }
+                    marker.setIcon({
+                        url: "/public/assets/images/location.png"
+                    });
+                    document.getElementById('txt_lat').value = place.geometry.location.lat();
+                    document.getElementById('txt_lng').value = place.geometry.location.lng();
+                    console.log(place.geometry.location.lat());
+                    marker.setPosition(place.geometry.location);
+                    marker.setVisible(true);
 
-  // get places auto-complete when user type in location-text-box
-  var input = /** @type {HTMLInputElement} */
-  (
-    document.getElementById('location-text-box'));
-
-
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
-
-  var infowindow = new google.maps.InfoWindow();
-  marker = new google.maps.Marker({
-    map: map,
-    icon: "images/gps.png",
-    anchorPoint: new google.maps.Point(0, -29),
-    draggable: true
-  });
-
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    infowindow.close();
-    marker.setVisible(false);
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      return;
-    }
-    var geocoder = new google.maps.Geocoder();
-    geocoder.geocode({'latLng': place.geometry.location}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          $('#txtaddress').val(results[0].formatted_address);
-          infowindow.setContent(results[0].formatted_address);
-          infowindow.open(map, marker);
-        }
-      }
-    });
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17); // Why 17? Because it looks good.
-    }
-    marker.setIcon( /** @type {google.maps.Icon} */ ({
-      url: "images/gps.png"
-    }));
-    document.getElementById('txtlat').value = place.geometry.location.lat();
-    document.getElementById('txtlng').value = place.geometry.location.lng();
-    console.log(place.geometry.location.lat());
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
-
-    var address = '';
-    if (place.address_components) {
-      address = [
-      (place.address_components[0] && place.address_components[0].short_name || ''), (place.address_components[1] && place.address_components[1].short_name || ''), (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
-    }
-    /* Dragend Marker */
-    google.maps.event.addListener(marker, 'dragend', function() {
-      var geocoder = new google.maps.Geocoder();
-      geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            $('#location-text-box').val(results[0].formatted_address);
-            $('#txtlat').val(marker.getPosition().lat());
-            $('#txtlng').val(marker.getPosition().lng());
-            infowindow.setContent(results[0].formatted_address);
-            infowindow.open(map, marker);
-          }
-        }
-      });
-    });
-    /* End Dragend */
-  });
-
-}
-
-
-// google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-<script type="text/javascript" src="assets/js/selectize.js"></script>
-<script>
-  $(function() {
-    $('select').selectize(options);
-  });
-  $('#select-state').selectize({
-    maxItems: null
-  });
-</script>
+                    var address = '';
+                    if (place.address_components) {
+                        address = [
+                            (place.address_components[0] && place.address_components[0].short_name || ''),
+                            (place.address_components[1] && place.address_components[1].short_name || ''),
+                            (place.address_components[2] && place.address_components[2].short_name || '')
+                        ].join(' ');
+                    }
+                    /* sử dụng Dregend để đánh dấu */
+                    google.maps.event.addListener(marker, 'dragend', function () {
+                        var geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({'latlng': marker.getPosition()}, function (results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                if (results[0]) {
+                                    $('#location-text').val(results[0].formatted_address);
+                                    $('#txt_lat').val(marker.getPosition().lat());
+                                    $('#txt_lng').val(marker.getPosition().lng());
+                                    infowindow.setContent(results[0].formatted_address);
+                                    infowindow.open(map, marker);
+                                }
+                            }
+                        });
+                    });
+                    /* End Dragend */
+                });
+            }
+        </script>
+    </main>
 @endsection

@@ -1,171 +1,150 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+
+use App\Models\MBaiviet;
+use App\Models\MChutro;
+use App\Models\MDanhmuc;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\User;
-use App\Motelroom;
-use App\Reports;
-use App\RequestFromCustomerModel;
-use App\HopDongThueNhaModel;
-use App\KhachThueModel;
-use App\PhongTroModel;
-use App\HoaDonModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
-    public function getIndex() {
-      $total_users_active = User::where('tinhtrang',1)->get()->count();
-      $total_users_deactive = User::where('tinhtrang',0)->get()->count();
-      $total_rooms_approve = Motelroom::where('approve',1)->get()->count();
-      $total_rooms_unapprove = Motelroom::where('approve',0)->get()->count();
-      // $so_tin_da_dang = Motelroom::where('user_id', Auth::user()->id)->get()->count();
-      // $tongso_luot_xem_tin = Motelroom::where('user_id', Auth::user()->id)->get()->sum('count_view');
-      // $yeu_cau = RequestFromCustomerModel::where('id_usermotelroom', Auth::user()->id)->get()->count();
-      $hop_dong = HopDongThueNhaModel::where('chutro_id', Auth::user()->id)->get()->count();
-      $nguoi_thue_tro = KhachThueModel::where('chutro_id', Auth::user()->id)->get()->count();
-      $phong_tro = PhongTroModel::where('chutro_id', Auth::user()->id)->get()->count();
-      $phongchothue = HopDongThueNhaModel::where('chutro_id', Auth::user()->id)->get()->count();
-      $hoadon = HoaDonModel::where('chutro_id', Auth::user()->id)->get()->count();
-      $hoadon_thanhtoan = HoaDonModel::where('chutro_id', Auth::user()->id)->where('trang_thai', 2)->get()->count();
-      $reports = Reports::all();
-
-      return view ('admin.index', [
-        'total_users_active'=>$total_users_active,
-        'total_users_deactive'=>$total_users_deactive,
-        'total_rooms_approve'=>$total_rooms_approve,
-        'total_rooms_unapprove'=>$total_rooms_unapprove,
-        'hop_dong'=>$hop_dong,
-        'khach_thue'=>$nguoi_thue_tro,
-        'phong_tro'=>$phong_tro,
-        'phong_cho_thue'=>$phongchothue,
-        'total_report'=>$reports->count(),
-        'count_hoadon'=>$hoadon,
-        'cout_hoadon_thanhtoan'=>$hoadon_thanhtoan,
-      ]);
+    public function login_admin()
+    {
+        return view('admin.dangnhap');
     }
-
-    public function getThongke(){
-      $total_users_active = User::where('tinhtrang',1)->get()->count();
-      $total_users_deactive = User::where('tinhtrang',0)->get()->count();
-      $total_rooms_approve = Motelroom::where('approve',1)->get()->count();
-      $total_rooms_unapprove = Motelroom::where('approve',0)->get()->count();
-      $reports = Reports::all();
-      return view ('admin.thongke',[
-        'total_users_active'=>$total_users_active,
-        'total_users_deactive'=>$total_users_deactive,
-        'total_rooms_approve'=>$total_rooms_approve,
-        'total_rooms_unapprove'=>$total_rooms_unapprove,
-        'total_report'=>$reports->count(),
-      ]);
+    public function register_admin()
+    {
+        return view('admin.dangky');
     }
-
-    public function getReport(){
-      $reports = Reports::all()->count();
-      $motels = Motelroom::all();
-      return view ('admin.report',[
-        'motels'=>$motels,
-        'reports' => $reports
-      ]);
+    public function index()
+    {
+        return view('chutro.dashboard');
     }
-
-    public function logout(){
-        Auth::logout();
-      return redirect('admin');
+    public function addashboard()
+    {
+        return view('admin.dashboard');
     }
-
-    public function getLogin(){
-    	return view('admin.login');
-    }
-
-    public function postLogin(Request $req){
-    	$req->validate([
-   			'username' => 'required',
-   			'password' => 'required',
-   			
-   		],[
-   			'username.required' => 'Vui lòng nhập tài khoản',
-   			'password.required' => 'Vui lòng nhập mật khẩu'
-   			
-   		]);
-   		if(Auth::attempt(['username'=>$req->username,'password'=>$req->password])){
-    		return redirect('admin');
-
-    	}
-    	else 
-    		return redirect('admin/login')->with('thongbao','Đăng nhập không thành công');
-    }
-
-    public function getListUser() {
-      $users = User::all();
-      return view('admin.users.list',['users'=>$users]);
-    }
-
-    /* Motel room */
-    public function getListMotel() {
-
-      $myroom = Motelroom::where('user_id', Auth::user()->id)->paginate(6);
-        return view('admin.motelroom.list', ['motelrooms'=>$myroom]);
-
-    }
-
-    public function ApproveMotelroom($id) {
-      $room = Motelroom::find($id);
-      $room->approve = 1;
-      $room->save();
-      return redirect('admin/motelrooms/list')->with('thongbao','Đã kiểm duyệt bài đăng: '.$room->title);
-    }
-
-    public function UnApproveMotelroom($id){
-      $room = Motelroom::find($id);
-      $room->approve = 0;
-      $room->save();
-      return redirect('admin/motelrooms/list')->with('thongbao','Đã bỏ kiểm duyệt bài đăng: '.$room->title);
-    }
-
-    public function DelMotelroom($id){
-      $room = Motelroom::find($id);
-      $room->delete();
-      return redirect('admin/motelrooms/list')->with('thongbao','Đã xóa bài đăng');
-    }
-
-    /* user */
-    public function getUpdateUser($id){
-      $user = User::find($id);
-      return view('admin.users.edit',['user'=>$user]);
-    }
-    
-    public function postUpdateUser(Request $request,$id){
-      $this->validate($request,[
-          'HoTen' => 'required'
-        ],[
-          'HoTen.required' => 'Vui lòng nhập đầy đủ Họ Tên'
+    public function profile($id)
+    {
+        $info_account = User::where('id', $id)->first();
+        return view('admin.profile', [
+            "info"=>$info_account,
         ]);
-      $user = User::find($id);
-      $user->name = $request->HoTen;
-      $user->right = $request->Quyen;
-      $user->tinhtrang = $request->TinhTrang;
-
-      if($request->password != ''){
-        $this->validate($request,[
-          'password' => 'min:3|max:32',
-          'repassword' => 'same:password',
-        ],[
-          'password.min' => 'password phải lớn hơn 3 và nhỏ hơn 32 kí tự',
-          'password.max' => 'password phải lớn hơn 3 và nhỏ hơn 32 kí tự',
-          'repassword.same' => 'Nhập lại mật khẩu không đúng',
-          'repassword.required' => 'Vui lòng nhập lại mật khẩu',
-        ]);
-        $user->password = bcrypt($request->password);
-      }
-
-      
-      $user->save();
-      return redirect('admin/users/edit/'.$id)->with('thongbao','Hoàn tất thay đổi: '.$request->username.' .');
     }
-    public function DeleteUser($id){
-      $user = User::find($id);
-      $user->delete();
-      return redirect('admin/users/list')->with('thongbao','Đã xóa người dùng khỏi danh sách. Những bài đăng của người dùng này cũng bị xóa');
+    public function changes_profile(Request $request, $id)
+    {
+        $request->validate([
+            'txt_name'=>'required',
+            'txt_birthday'=>'required|unique:tbl_user,ngay_sinh',
+            'txt_phone'=>'required',
+            'txt_cccd'=>'required|unique:tbl_user,cccd',
+            'txt_ngaycap'=>'required|unique:tbl_user,ngay_cap_cccd',
+            'txt_noicap'=>'required|unique:tbl_user,noi_cap_cccd',
+            'txt_location'=>'required|unique:tbl_user,dia_chi',
+        ],[
+            'txt_name.required'=>'Bạn chưa nhập đủ thông tin tên',
+            'txt_birthday'=>'Bạn chưa cập nhật ngày sinh',
+            'txt_phone'=>'Bạn chưa cập nhật số điện thoại',
+            'txt_cccd'=>'Bạn chưa cập nhật cccd',
+            'txt_ngaycap'=>'Bạn chưa cập nhật ngày cấp cccd',
+            'txt_noicap'=>'Bạn chưa cập nhật nơi cấp cccd',
+            'txt_location'=>'Bạn chưa cập nhật địa chỉ',
+        ]);
+
+        if (Auth::user()->id == $id) {
+            $user = User::find($id);
+            $user->name = $request->txt_name;
+            $user->ngay_sinh = $request->txt_birthday;
+            $user->dia_chi = $request->txt_location;
+            $user->phone = $request->txt_phone;
+            $user->cccd = $request->txt_cccd;
+            $user->ngay_cap_cccd = $request->txt_ngaycap;
+            $user->noi_cap_cccd = $request->txt_noicap;
+            $user->save();
+            return redirect()->back()->with('success', 'Cập nhật thông tin thành công');
+        } else {
+            return redirect()->back()->with('error', 'Không đúng thông tin');
+        }
+
+    }
+
+//    Danh muc & bai viet
+    public function danh_muc()
+    {
+        $list_danhmuc = MDanhmuc::all();
+        return view('admin.danhmuc.danhmuc', [
+            "list"=>$list_danhmuc
+        ]);
+    }
+    public function danh_muc_add(Request $request)
+    {
+        $the_loai = new MDanhmuc();
+        $the_loai->loai = $request->loai;
+        $the_loai->tinhtrang = $request->tinhtrang;
+
+        $the_loai->save();
+        return Redirect::back()->with('success','Thêm thành công!');
+    }
+    public function danh_muc_mo($id)
+    {
+        $danhmuc = MDanhmuc::find($id);
+        $danhmuc->tinhtrang = 1;
+        $danhmuc->save();
+        return Redirect::back()->with('success','Đã mở!');
+    }
+    public function danh_muc_khoa($id)
+    {
+        $danhmuc = MDanhmuc::find($id);
+        $danhmuc->tinhtrang = 2;
+        $danhmuc->save();
+        return Redirect::back()->with('warning','Đã khóa!');
+    }
+    public function danh_muc_delete($id)
+    {
+        $danhmuc = MDanhmuc::find($id)->delete();
+        return Redirect::back()->with('success','Đã xóa!');
+    }
+    public function bai_viet()
+    {
+        $list_baiviet = MBaiviet::all();
+        $list_danhmuc = MDanhmuc::all();
+        $list_chutro = User::where('roles', 2)->get();
+        return view('admin.baiviet.baiviet', [
+            "list_baiviet"=>$list_baiviet,
+            "list_danhmuc"=>$list_danhmuc,
+            "list_chutro"=>$list_chutro
+        ]);
+    }
+    public function khoa_baiviet($id)
+    {
+        $find_baiviet = MBaiviet::find($id);
+        $find_baiviet->trang_thai = 2;
+        $find_baiviet->save();
+        return Redirect::back()->with('success', 'Đã khóa bài viết!');
+    }
+    public function xacminh_baiviet($id)
+    {
+        $find_baiviet = MBaiviet::find($id);
+        $find_baiviet->trang_thai = 1;
+        $find_baiviet->save();
+        return Redirect::back()->with('success', 'Đã xác minh bài viết!');
+    }
+    public function danhsach_chutro()
+    {
+        $account_chutro = User::where('roles', 2)->get();
+        return view('admin.account.chutro', [
+            "account_chutro"=>$account_chutro,
+        ]);
+    }
+    public function danhsach_khachthue()
+    {
+        $account_khach = User::where('roles', 3)->get();
+        return view('admin.account.khachthue', [
+            "account_khach"=>$account_khach,
+        ]);
     }
 }

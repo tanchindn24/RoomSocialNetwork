@@ -1,168 +1,94 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-use App\User;
-use App\District;
-use App\Categories;
-use App\Motelroom;
-use App\Comment;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CBaiviet;
+use App\Http\Controllers\CChutro;
+use App\Http\Controllers\CPhongtro;
+use App\Http\Controllers\Auth\AuthController;
+use App\Events\SendMessage;
+use Illuminate\Http\Request;
 
-Route::get('/', function () {
-	$district = District::all();
-    $categories = Categories::all();
-    $hot_motelroom = Motelroom::where('approve',1)->orderBy('count_view','desc')->get();
-    $map_motelroom = Motelroom::where('approve',1)->get();
-	$listmotelroom = Motelroom::where('approve',1)->paginate(4);
-    return view('home.index',[
-    	'district'=>$district,
-        'categories'=>$categories,
-        'hot_motelroom'=>$hot_motelroom,
-    	'map_motelroom'=>$map_motelroom,
-        'listmotelroom'=>$listmotelroom
-    ]);
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [HomeController::class, 'index']);
+
+Route::prefix('/')->group(function () {
+    Route::get('chutro', [AdminController::class, 'index'])->middleware('chutro');
+    Route::get('admin', [AdminController::class, 'addashboard'])->middleware('admin');
+    Route::get('dangnhap', [HomeController::class, 'dangnhap']);
+    Route::post('dangnhap', [AuthController::class, 'dangnhap'])->name('login');
+    Route::get('dangky', [HomeController::class, 'dangky']);
+    Route::post('dangky', [AuthController::class, 'dangky'])->name('register');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('user', [AuthController::class, 'thongtin'])->name('user');
+    Route::get('tindangphongtro', [CBaiviet::class, 'tindang']);
+    Route::get('dangtin', [CBaiviet::class, 'dangtin'])->middleware('home');
+    Route::post('chutro/dangtin', [CBaiviet::class, 'post_dangtin'])->name('dangtinphong');
+    Route::get('detail/{slug}', [CBaiviet::class, 'detail'])->name('detail.slug');
+    /*Socical Google Login*/
+    Route::get('auth/redirect/{provider}', [AuthController::class, 'redirect']);
+    Route::get('callback/{provider}', [AuthController::class, 'callback']);
+    Route::get('logout', [AuthController::class, 'logout_dashboard']);
+});
+/*Chat*/
+Route::middleware('home')->group(function () {
+    Route::get('chat/{id}', function () {
+       broadcast(new SendMessage(auth()->user(), null));
+       return view('home.chat');
+    });
+    Route::post('message', function (Request $request) {
+        broadcast(new SendMessage(auth()->user(), $request->input('message')));
+        return $request->input('message');
+    });
 });
 
-Route::get('/moinhat', function () {
-    $district = District::all();
-    $categories = Categories::all();
-    $new_motelroom = Motelroom::where('approve',1)->orderBy('created_at','desc')->paginate(5);
-    $map_motelroom = Motelroom::where('approve',1)->get();
-    $listmotelroom = Motelroom::where('approve',1)->paginate(4);
-    return view('home.newpostsroom',[
-        'district'=>$district,
-        'categories'=>$categories,
-        'new_motelroom'=>$new_motelroom,
-        'map_motelroom'=>$map_motelroom,
-        'listmotelroom'=>$listmotelroom
-    ]);
+
+// Admin
+Route::prefix('/admin')->group(function () {
+    Route::get('dangnhap', [AdminController::class, 'login_admin']);
+    Route::post('dangnhap', [AuthController::class, 'login_admin'])->name('login-admin');
+    Route::get('dangky', [AdminController::class, 'register_admin']);
+    Route::get('profile/{id}', [AdminController::class, 'profile'])->name('admin-profile');
+    Route::post('profile/{id}', [AdminController::class, 'changes_profile'])->name('admin-profile-changes');
+});
+Route::group(['prefix'=>'/admin', 'middleware'=>['admin']], function() {
+// Bai viet
+    Route::get('danhmuc', [AdminController::class, 'danh_muc'])->name('danhmuc');
+    Route::post('danhmuc', [AdminController::class, 'danh_muc_add'])->name('admin.danhmuc.add');
+    Route::get('danhmuc-delete/{id}', [AdminController::class, 'danh_muc_delete'])->name('danhmuc.delete');
+    Route::get('mo-danhmuc/{id}', [AdminController::class, 'danh_muc_mo'])->name('modanhmuc');
+    Route::get('khoa-danhmuc/{id}', [AdminController::class, 'danh_muc_khoa'])->name('khoadanhmuc');
+    Route::get('baiviet', [AdminController::class, 'bai_viet'])->name('baiviet');
+    Route::get('khoa-baiviet/{id}', [AdminController::class, 'khoa_baiviet'])->name('khoa-baiviet');
+    Route::get('xac-minh-baiviet/{id}', [AdminController::class, 'xacminh_baiviet'])->name('xacminh-baiviet');
+    Route::get('quanli-chutro', [AdminController::class, 'danhsach_chutro'])->name('account-chutro');
+    Route::get('quanli-khachthue', [AdminController::class, 'danhsach_khachthue'])->name('account-khach');
+});
+// End Admin
+
+// Chutro
+Route::group(['prefix'=>'/chutro', 'middleware'=>['chutro']], function() {
+    //    Loại phòng
+    Route::get('loaiphong', [CChutro::class, 'danh_sach'])->name('ds-loaiphong');
+    Route::post('loaiphong', [CChutro::class, 'loaiphong_add'])->name('chutro.loaiphong.add');
+    Route::get('loaiphong-active/{id}', [CChutro::class, 'loaiphong_active'])->name('loaiphong.active');
+    Route::get('loaiphong-unactive/{id}', [CChutro::class, 'loaiphong_unactive'])->name('loaiphong.unactive');
+    Route::get('loaiphong-edit/{id}', [CChutro::class, 'loaiphong_edit'])->name('chutro.loaiphong.edit');
+    Route::post('loaiphong-edit/{id}', [CChutro::class, 'loaiphong_edit_post'])->name('loaiphong.edit.post');
+    Route::get('loaiphong-delete/{id}', [CChutro::class, 'loaiphong_delete'])->name('loaiphong.delete');
+
+    // Danh muc & bai viet
+    Route::get('danhmuc', [CChutro::class, 'chutro_danh_muc'])->name('chutro.danhmuc');
+    Route::get('baiviet', [CChutro::class, 'chutro_tindang'])->name('chutro.tindang');
+    // phòng trọ
+    Route::get('phongtro', [CPhongtro::class, 'danh_sach'])->name('ds-phongtro');
+    Route::post('phongtro-add', [CPhongtro::class, 'phongtro_add'])->name('chutro.phongtro.add');
 });
 
-Route::get('category/{id}','MotelController@getMotelByCategoryId');
-/* Admin */
-Route::get('admin/login','AdminController@getLogin');
-Route::post('admin/login','AdminController@postLogin')->name('admin.login');
-Route::group(['prefix'=>'admin','middleware'=>'adminmiddleware'], function () {
-    Route::get('logout','AdminController@logout');
-    Route::get('','AdminController@getIndex');
-    Route::get('thongke','AdminController@getThongke');
-    Route::get('report','AdminController@getReport');
-    Route::group(['prefix'=>'users'],function() {
-        
-        Route::get('list','AdminController@getListUser');
-        Route::get('edit/{id}','AdminController@getUpdateUser');
-        Route::post('edit/{id}','AdminController@postUpdateUser')->name('admin.user.edit');
-        Route::get('del/{id}','AdminController@DeleteUser');
-    });
-    Route::group(['prefix'=>'motelrooms'],function(){
-        Route::get('list','AdminController@getListMotel');
-        Route::get('approve/{id}','AdminController@ApproveMotelroom');
-        Route::get('unapprove/{id}','AdminController@UnApproveMotelroom');
-        Route::get('del/{id}','AdminController@DelMotelroom');
-    });
-
-    Route::resource('loaiphong', 'LoaiphongController');
-    Route::resource('/categories', 'CategoriesController');
-    Route::resource('/hoadon', 'HoaDonController');
-    Route::resource('/request', 'RequestFromCustomerController');
-    Route::resource('/hopdong', 'HopDongThueNhaController');   
-    Route::resource('/phongtro', 'PhongTroController');
-    Route::resource('/phongchothue', 'PhongChoThueController');
-    Route::resource('/khachthue', 'KhachThueController');
-    Route::resource('/dientro', 'DienController');
-    Route::resource('/nuoctro', 'NuocController');
-
-    Route::group(['prefix'=>'khachthue'],function(){
-       Route:: get('huyhoatdong/{id}','KhachThueController@huyhoatdong');
-       Route::get('mohoatdong/{id}', 'KhachThueController@mohoatdong');
-    });
-    Route::group(['prefix'=>'loaiphong'],function(){
-        Route::get('huyhoatdong/{id}', 'LoaiphongController@tat');
-        Route::get('hoatdong/{id}', 'LoaiphongController@mo');
-    });
-    Route::group(['prefix'=>'phongtro'],function(){
-        Route::get('trong/{id}', 'PhongTroController@ptrong')->name('phongtro.trong');
-        Route::get('suachua/{id}', 'PhongTroController@psuachua')->name('phongtro.suachua');
-        Route::get('dondep/{id}', 'PhongTroController@pdondep')->name('phongtro.dondep');
-        Route::get('datcoc/{id}', 'PhongTroController@pdatcoc')->name('phongtro.datcoc');
-        Route::get('chothue/{id}', 'PhongTroController@pchothue')->name('phongtro.chothue');
-        Route::get('khoa/{id}', 'PhongTroController@pkhoa')->name('phongtro.khoa');
-    });
-    Route::group(['prefix'=>'khachthuetro'],function(){
-        Route::get('hethopdong/{id}', 'PhongTroController@hethopdong');
-        Route::get('conhopdong/{id}', 'PhongTroController@conhopdong');
-        Route::get('dathanhtoan/{id}', 'PhongTroController@dathanhtoan');
-        Route::get('chuathanhtoan/{id}', 'PhongTroController@chuathanhtoan');
-    });
-});
-// Khai báo tạm trú tạm vắng
-Route::get('/khachthue/tamtrutamvang', 'KhachThueController@tamtrutamvang')->name('admin.khachthue.tamtrutamvang');
-Route::get('/khachthue/khaibaotamtru', 'KhachThueController@khaibaotamtru')->name('admin.khachthue.khaibaotamtru');
-Route::post('/get-select', 'KhachThueController@get_data_diachi');
-Route::post('/khachthue/postdatatamtru', 'KhachThueController@postdatatamtru')->name('khachthue.postdatatamtru');
-Route::get('/khachthue/xuattamtru/{id}', 'KhachThueController@xuattamtru')->name('admin.xuattamtru');
-// Hợp đồng
-Route::get('/hopdong/inhopdong/{id}', 'HopDongThueNhaController@inhopdong')->name('admin.hopdong.inhopdong');
-Route::get('/dientro/nhapsodien/{id}', 'DienController@store')->name('admin.dientro.nhapsodien');
-Route::get('/nuoctro/nhapsonuoc/{id}', 'NuocController@store')->name('admin.nuoctro.nhapsonuoc');
-Route::get('/hopdong/lamhopdong/{id}', 'HopDongThueNhaController@taohopdong')->name('admin.hopdong.taohopdong');
-Route::post('/hopdong/lamhopdong/{id}', 'HopDongThueNhaController@postdatahopdong')->name('admin.hopdong.postdatahopdong');
-// Hóa đơn
-Route::get('/hoadon/taohoadon/{id}', 'HoaDonController@taohoadon')->name('admin.hoadon.taohoadon');
-Route::post('/hoadon/taohoadon/{id}', 'HoaDonController@postdatahoadon')->name('hoadon.postdatahoadon');
-Route::get('/hoadon/inhoadon/{id}', 'HoaDonController@inhoadon')->name('admin.hoadon.inhoadon');
-/* End Admin */
-
-Route::get('/phongtro/{slug}',function($slug){
-    $room = Motelroom::findBySlug($slug);
-    $room->count_view = $room->count_view +1;
-    $room->save();
-    $categories = Categories::all();
-    $comment = DB::table('comment')->orderBy('id','asc')->where('room_id',$room->id)->paginate(3);
-    foreach($comment as $commentt) {
-            $user_detail = DB::table('users')->where('id', $commentt->user_id)->first();
-            $commentt->name=$user_detail->name;
-            $commentt->avatar=$user_detail->avatar;
-    }
-    return view('home.detail',['motelroom'=>$room, 'categories'=>$categories, 'comment'=>$comment]);
-});
-
-Route::get('/report/{id}','MotelController@userReport')->name('user.report');
-Route::get('/motelroom/del/{id}','MotelController@user_del_motel');
-Route::get('/yeucau/{id},{user_motel}', 'RequestFromCustomerController@store')->name('user.yeucau');
-/* User */
-Route::group(['prefix'=>'user'], function () {
-    Route::get('register','UserController@get_register');
-    Route::post('register','UserController@post_register')->name('user.register');
-
-    Route::get('login','UserController@get_login');
-    Route::post('login','UserController@post_login')->name('user.login');
-    Route::get('logout','UserController@logout');
-
-    Route::get('dangtin','UserController@get_dangtin')->middleware('dangtinmiddleware');
-    Route::post('dangtin','UserController@post_dangtin')->name('user.dangtin')->middleware('dangtinmiddleware');
-
-
-    Route::get('profile','UserController@getprofile')->middleware('dangtinmiddleware');
-    Route::get('profile/edit','UserController@getEditprofile')->middleware('dangtinmiddleware');
-    Route::post('profile/edit','UserController@postEditprofile')->name('user.edit')->middleware('dangtinmiddleware');
-
-    Route::get('diennuoc', 'UserController@get_adddiennuoc')->middleware('dangtinmiddleware');
-
-});
-
-/* ----*/
-
-Route::post('searchmotel','MotelController@SearchMotelAjax');
-Route::post('searchpoly','MotelController@SearchpolyAjax');
-Route::get('/guibinhluan', 'UserController@guibinhluan');
-
+Route::get('chutro/getQuanhuyen/{matp}',[CPhongtro::class, 'getQuanhuyen']);
+Route::get('chutro/getXaphuong/{maqh}',[CPhongtro::class, 'getXaphuong']);
+// End Chutro
