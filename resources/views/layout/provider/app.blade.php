@@ -31,7 +31,9 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/owlcarousel.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/prism.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/date-picker.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/dropzone.css')}}">
+    <!-- the fileinput plugin styling CSS file -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/bootstrap.css')}}">
@@ -79,51 +81,10 @@
             </div>
         </footer>
         <script>
-            var map;
-
-            function initMap() {
-                map = new google.maps.Map(
-                    document.getElementById('map'),
-                    {center: new google.maps.LatLng(-33.91700, 151.233), zoom: 18});
-
-                var iconBase =
-                    '/assets/backend/provider/assets/images/dashboard-2/';
-
-                var icons = {
-                    userbig: {
-                        icon: iconBase + '1.png'
-                    },
-                    library: {
-                        icon: iconBase + '3.png'
-                    },
-                    info: {
-                        icon: iconBase + '2.png'
-                    }
-                };
-
-                var features = [
-                    {
-                        position: new google.maps.LatLng(-33.91752, 151.23270),
-                        type: 'info'
-                    }, {
-                        position: new google.maps.LatLng(-33.91700, 151.23280),
-                        type: 'userbig'
-                    }, {
-                        position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
-                        type: 'library'
-                    }
-                ];
-
-                // Create markers.
-                for (var i = 0; i < features.length; i++) {
-                    var marker = new google.maps.Marker({
-                        position: features[i].position,
-                        icon: icons[features[i].type].icon,
-                        map: map
-                    });
-                }
-                ;
-            }
+            // initialize plugin with defaults
+            $("#input-id").fileinput();
+            // with plugin options
+            $("#input-id").fileinput({'showUpload':false, 'previewFileType':'any'});
         </script>
     </div>
 </div>
@@ -165,8 +126,29 @@
 {{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.custom.js')}}"></script>--}}
 {{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/handlebars.js')}}"></script>--}}
 {{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/typeahead-custom.js')}}"></script>--}}
-<script src="{{URL::asset('assets/backend/provider/assets/js/dropzone/dropzone.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/dropzone/dropzone-script.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js" type="text/javascript"></script>
+
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js" type="text/javascript"></script>
+
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js" type="text/javascript"></script>
+
+<!-- bootstrap.bundle.min.js below is needed if you wish to zoom and preview file content in a detail modal
+    dialog. bootstrap 5.x or 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+<!-- the main fileinput plugin script JS file -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js"></script>
+
+<!-- following theme script is needed to use the Font Awesome 5.x theme (`fa5`). Uncomment if needed. -->
+<!-- script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/themes/fa5/theme.min.js"></script -->
+
+<!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
+<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/script.js')}}"></script>

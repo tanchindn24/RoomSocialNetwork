@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PostCategories;
+use App\Models\Posts;
 use App\Services\Admin\AdminService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -40,7 +42,9 @@ class AdminController extends Controller
 
     public function postList() :View
     {
-        return view('admin.posts.list_post');
+        $listPost = Posts::all();
+
+        return view('admin.posts.list_post', compact('listPost'));
     }
 
     public function categoryList() :View

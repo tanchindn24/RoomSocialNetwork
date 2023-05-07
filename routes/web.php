@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPostsController;
 use App\Http\Controllers\Admin\AuthController as AdminAuth;
 use App\Http\Controllers\Admin\ServiceRoomController;
 use App\Http\Controllers\Provider\AuthController as ProviderAuth;
@@ -45,6 +46,8 @@ Route::group(['prefix' => 'provider', 'middleware' => ['provider']], function ()
     Route::get('posts', [ProviderController::class, 'posts'])->name('provider.posts_list');
     Route::get('posts-create', [PostsController::class, 'postsCreate'])->name('provider.posts.create');
     Route::post('posts-store', [PostsController::class, 'postsStore'])->name('provider.posts.store');
+    Route::get('posts-edit/{id}', [PostsController::class, 'postsEdit'])->name('provider.posts.edit');
+    Route::delete('posts-delete/{id}', [PostsController::class, 'postsDelete'])->name('provider.posts.delete');
     Route::get('services-list', [RoomController::class, 'serviceList'])->name('provider.services.list');
     Route::get('services-create', [RoomController::class, 'serviceCreate'])->name('provider.services.create');
     Route::post('services-store', [RoomController::class, 'serviceStore'])->name('provider.services.store');
@@ -67,6 +70,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::get('users-provider', [AdminController::class, 'providerList'])->name('admin.users.provider');
     Route::get('users-seeker', [AdminController::class, 'seekerList'])->name('admin.users.seeker');
     Route::get('post-list', [AdminController::class, 'postList'])->name('admin.post.list');
+    Route::get('post-inactive/{id}', [AdminPostsController::class, 'postInactive'])->name('admin.post.inactive');
+    Route::get('post-active/{id}', [AdminPostsController::class, 'postActive'])->name('admin.post.active');
+    Route::get('post-delete/{id}', [AdminPostsController::class, 'postDelete'])->name('admin.post.delete');
     Route::get('category-list', [AdminController::class, 'categoryList'])->name('admin.category.list');
     Route::get('category-list-add', [AdminController::class, 'categoryListAdd'])->name('admin.category.list.add');
     Route::get('service-category-list', [ServiceRoomController::class, 'serviceCategoryList'])->name('admin.serviceCategory.list');

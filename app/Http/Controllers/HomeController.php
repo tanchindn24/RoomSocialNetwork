@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PostCategories;
+use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,18 @@ class HomeController extends Controller
     {
         $getProvider = User::where('roles', 2)
             ->where('status', 1)->get();
-        return view('home', compact('getProvider'));
+
+        $getCategory = PostCategories::where('status', 1)
+            ->get();
+
+        $getPost = Posts::where('status', 1)
+            ->get();
+
+        return view('home', [
+            'post' => $getPost,
+            'category' => $getCategory,
+            'provider' => $getProvider,
+        ]);
     }
 
     public function listPosts() :View
