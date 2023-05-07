@@ -7,6 +7,9 @@
                     <div class="col-6">
                         <h3>Dashboard Provider</h3>
                     </div>
+                    @if (session('notification'))
+                        <script>alert('{{ session('notification') }}');</script>
+                    @endif
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('provider.index')}}"><i data-feather="home"></i></a></li>

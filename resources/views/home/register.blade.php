@@ -28,7 +28,7 @@
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
                                         <h3 class="mb-5">Create an Account</h3>
-                                        <p class="mb-30">Already have an account? <a href="{{route('home.login')}}">Login</a></p>
+                                        <p class="mb-30">Already have an account? <a href="{{route('login')}}">Login</a></p>
                                     </div>
                                     <form action="{{ route('register.store') }}" method="post">
                                         @csrf
@@ -44,16 +44,16 @@
                                         <div class="form-group">
                                             <input required="" type="password" name="password_confirmation" placeholder="Confirm password" />
                                         </div>
-                                        <div class="payment_option mb-30">
-                                            <div class="custome-radio">
-                                                <input class="form-check-input" required="" type="radio" name="role" id="exampleRadios3" checked="" />
-                                                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">I am a Provider</label>
-                                            </div>
-                                            <div class="custome-radio">
-                                                <input class="form-check-input" required="" type="radio" name="role" id="exampleRadios4" checked="" />
-                                                <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">I am a Seeker</label>
-                                            </div>
-                                        </div>
+{{--                                        <div class="payment_option mb-30">--}}
+{{--                                            <div class="custome-radio">--}}
+{{--                                                <input class="form-check-input" required="" type="radio" name="role" id="exampleRadios3" checked="" />--}}
+{{--                                                <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">I am a Provider</label>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="custome-radio">--}}
+{{--                                                <input class="form-check-input" required="" type="radio" name="role" id="exampleRadios4" checked="" />--}}
+{{--                                                <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">I am a Seeker</label>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="login_footer form-group mb-30">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
@@ -82,6 +82,20 @@
                                     <span>Continue with Google</span>
                                 </a>
                             </div>
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            @if(session('notification'))
+                                <div class="alert alert-danger alert-dismissible " role="alert">
+                                    {{session('notification')}}.
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

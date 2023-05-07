@@ -31,7 +31,21 @@
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
                                         <h1 class="mb-5">Login</h1>
-                                        <p class="mb-30">Don't have an account? <a href="{{route('home.register')}}">Create here</a></p>
+                                        <p class="mb-30">Don't have an account? <a href="{{route('register')}}">Create here</a></p>
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+                                        @if(session('notification'))
+                                            <div class="alert alert-danger alert-dismissible " role="alert">
+                                                {{session('notification')}}.
+                                            </div>
+                                        @endif
                                     </div>
                                     <form action="{{route('login.store')}}" method="post">
                                         @csrf

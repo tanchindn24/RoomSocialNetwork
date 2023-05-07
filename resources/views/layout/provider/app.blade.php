@@ -87,7 +87,7 @@
                     {center: new google.maps.LatLng(-33.91700, 151.233), zoom: 18});
 
                 var iconBase =
-                    'assets/backend/provider/assets/images/dashboard-2/';
+                    '/assets/backend/provider/assets/images/dashboard-2/';
 
                 var icons = {
                     userbig: {
@@ -125,8 +125,6 @@
                 ;
             }
         </script>
-        <script async="" defer=""
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGCQvcXUsXwCdYArPXo72dLZ31WS3WQRw&amp;callback=initMap"></script>
     </div>
 </div>
 <!-- latest jquery-->
@@ -142,7 +140,7 @@
 <!-- Sidebar jquery-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/config.js')}}"></script>
 <!-- Plugins JS start-->
-<script src="{{URL::asset('assets/backend/provider/assets/js/dashboard/default.js')}}"></script>
+{{--<script src="{{URL::asset('assets/backend/provider/assets/js/dashboard/default.js')}}"></script>--}}
 <script src="{{URL::asset('assets/backend/provider/assets/js/sidebar-menu.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/rating/jquery.barrating.js')}}"></script>
@@ -158,16 +156,15 @@
 <script src="{{URL::asset('assets/backend/provider/assets/js/chart/apex-chart/apex-chart.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/chart/apex-chart/stock-prices.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/notify/bootstrap-notify.min.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/dashboard/default.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/notify/index.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/datepicker/date-picker/datepicker.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/datepicker/date-picker/datepicker.en.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/handlebars.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.bundle.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.custom.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/handlebars.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/typeahead-custom.js')}}"></script>
+{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/handlebars.js')}}"></script>--}}
+{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.bundle.js')}}"></script>--}}
+{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.custom.js')}}"></script>--}}
+{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/handlebars.js')}}"></script>--}}
+{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/typeahead-custom.js')}}"></script>--}}
 <script src="{{URL::asset('assets/backend/provider/assets/js/dropzone/dropzone.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/dropzone/dropzone-script.js')}}"></script>
 <!-- Plugins JS Ends-->

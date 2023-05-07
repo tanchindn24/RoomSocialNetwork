@@ -188,7 +188,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img src="assets/frontend/imgs/theme/logo.svg" alt="logo"/></a>
+                    <a href="/"><img src="assets/frontend/imgs/theme/logo.svg" alt="logo"/></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
@@ -298,27 +298,27 @@
                                     <img class="svgInject" alt="Nest"
                                          src="assets/frontend/imgs/theme/icons/icon-user.svg"/>
                                 </a>
-                                <a href="page-account.html"><span class="lable ml-0">Account</span></a>
-                                <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
-                                    <ul>
-                                        <li><a href="{{route('home.login')}}"><i
-                                                    class="fi fi-rs-user mr-10"></i>Login</a></li>
-                                        <li><a href="{{route('home.register')}}"><i class="fi fi-rs-user mr-10"></i>Register</a>
-                                        </li>
-                                        <li><a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>My
-                                                Account</a></li>
-                                        <li><a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order
-                                                Tracking</a></li>
-                                        <li><a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>My
-                                                Voucher</a></li>
-                                        <li><a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a>
-                                        </li>
-                                        <li><a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
-                                        </li>
-                                        <li><a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Sign
-                                                out</a></li>
-                                    </ul>
-                                </div>
+                                @if(Auth::check())
+                                    <a href="{{ route('seeker.index') }}"><span class="lable ml-0">{{ Auth::user()->name }}</span></a>
+                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                                        <ul>
+                                            <li><a href="{{ route('seeker.index') }}"><i class="fi fi-rs-user mr-10"></i>My
+                                                    Account</a></li>
+                                            <li><a href="{{ route('logout') }}"><i class="fi fi-rs-sign-out mr-10"></i>Sign
+                                                    out</a></li>
+                                        </ul>
+                                    </div>
+                                @else
+                                    <a href="#"><span class="lable ml-0">Login / Register</span></a>
+                                    <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
+                                        <ul>
+                                            <li><a href="{{route('login')}}"><i
+                                                        class="fi fi-rs-user mr-10"></i>Login</a></li>
+                                            <li><a href="{{route('register')}}"><i class="fi fi-rs-user mr-10"></i>Register</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -341,9 +341,9 @@
                                                            alt="hot deals"/><a href="shop-grid-right.html">Hot Deals</a>
                                 </li>
                                 <li>
-                                    <a class="active" href="index.html">Home <i class="fi-rs-angle-down"></i></a>
+                                    <a class="active" href="/">Home <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="index.html">Home 1</a></li>
+                                        <li><a href="/">Home 1</a></li>
                                         <li><a href="index-2.html">Home 2</a></li>
                                         <li><a href="index-3.html">Home 3</a></li>
                                         <li><a href="index-4.html">Home 4</a></li>
@@ -394,7 +394,7 @@
                                     <a href="#">Pages <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="page-about.html">About Us</a></li>
-                                        <li><a href="page-contact.html">Contact</a></li>
+                                        <li><a href="page-contact.html">Chat</a></li>
                                         <li><a href="page-account.html">My Account</a></li>
                                         <li><a href="page-login.html">Login</a></li>
                                         <li><a href="page-register.html">Register</a></li>
@@ -405,7 +405,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="page-contact.html">Contact</a>
+                                    <a href="{{ route('seeker.chat.provider') }}">Chat</a>
                                 </li>
                             </ul>
                         </nav>

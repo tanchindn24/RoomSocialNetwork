@@ -18,6 +18,7 @@
                             <li><a class="lan-4" href="{{route('provider.index')}}">Dashboard</a></li>
                         </ul>
                     </li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.chat.seeker') }}"><i data-feather="message-circle"></i><span>Chat</span></a></li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('provider.posts_list')}}"><i data-feather="layers"></i><span>Posts</span></a></li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Room</span></a></li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.services.list') }}"><i data-feather="git-pull-request"> </i><span>Service</span></a></li>

@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuth;
 use App\Http\Controllers\Admin\ServiceRoomController;
 use App\Http\Controllers\Provider\AuthController as ProviderAuth;
+use App\Http\Controllers\Provider\ProviderConversationChat;
 use App\Http\Controllers\Provider\RoomController;
 use App\Http\Controllers\Seeker\AuthController as SeekerAuth;
+use App\Http\Controllers\Seeker\SeekerConversationChat;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -19,18 +21,17 @@ use App\Http\Controllers\Provider\PostsController;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/list-posts', [HomeController::class, 'listPosts'])->name('home.list.posts');
 Route::get('/detail-posts', [HomeController::class, 'detailPosts'])->name('home.detail.posts');
-Route::get('/login', [HomeController::class, 'login'])->name('home.login');
-Route::post('/login', [HomeController::class, 'store'])->name('login.store');
-Route::get('/register', [HomeController::class, 'register'])->name('home.register');
-Route::post('/register', [HomeController::class, 'store'])->name('register.store');
 // SEEKER
-Route::get('admin/login', [SeekerAuth::class, 'login'])->name('admin.login');
-Route::post('admin/login-store', [SeekerAuth::class, 'loginStore'])->name('admin.login.store');
-Route::get('admin/register', [SeekerAuth::class, 'register'])->name('admin.register');
-Route::post('admin/register-store', [SeekerAuth::class, 'registerStore'])->name('admin.register.store');
-Route::get('admin/logout', [SeekerAuth::class, 'logout'])->name('admin.logout');
-Route::group(['prefix' => '/'], function () {
-    Route::get('seeker', [SeekerController::class, 'index'])->name('seeker.index');
+Route::get('login', [SeekerAuth::class, 'login'])->name('login');
+Route::post('login-store', [SeekerAuth::class, 'loginStore'])->name('login.store');
+Route::get('register', [SeekerAuth::class, 'register'])->name('register');
+Route::post('register-store', [SeekerAuth::class, 'registerStore'])->name('register.store');
+Route::get('logout', [SeekerAuth::class, 'logout'])->name('logout');
+Route::group(['prefix' => 'seeker', 'middleware' => ['seeker']], function () {
+    Route::get('/', [SeekerController::class, 'index'])->name('seeker.index');
+    Route::get('conversation', [SeekerConversationChat::class, 'chatWithProvider'])->name('seeker.chat.provider');
+    Route::get('conversation/chat/{id}', [SeekerConversationChat::class, 'chatWithProvider'])->name('seeker.chat.provider.id');
+    Route::get('conversation/chat-list', [SeekerConversationChat::class, 'getChatList'])->name('seeker.chat.list');
 });
 // PROVIDER
 Route::get('provider/login', [ProviderAuth::class, 'login'])->name('provider.login');
@@ -50,6 +51,9 @@ Route::group(['prefix' => 'provider', 'middleware' => ['provider']], function ()
     Route::get('services-edit/{id}', [RoomController::class, 'serviceEdit'])->name('provider.services.edit');
     Route::put('services-update/{id}', [RoomController::class, 'serviceUpdate'])->name('provider.services.update');
     Route::delete('services-delete/{id}', [RoomController::class, 'serviceDelete'])->name('provider.services.delete');
+    Route::get('conversation', [ProviderConversationChat::class, 'chatWithSeeker'])->name('provider.chat.seeker');
+    Route::get('conversation/chat/{id}', [ProviderConversationChat::class, 'chatWithSeeker'])->name('provider.chat.seeker.id');
+    Route::get('conversation/chat-list', [ProviderConversationChat::class, 'getChatList'])->name('provider.chat.list');
 });
 // ADMIN
 Route::get('admin/login', [AdminAuth::class, 'login'])->name('admin.login');

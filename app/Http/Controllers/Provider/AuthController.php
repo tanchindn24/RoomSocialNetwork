@@ -49,6 +49,9 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return redirect('provider')
+                ->with('notification', 'Login success!');
+        } else {
+            return redirect('provider/login')
                 ->with('notification', 'Email or password is incorrect');
         }
 

@@ -115,112 +115,11 @@
                 <li>
                     <div class="mode"><i class="fa fa-moon-o"></i></div>
                 </li>
-                <li class="cart-nav onhover-dropdown">
-                    <div class="cart-box"><i data-feather="shopping-cart"></i><span
-                            class="badge rounded-pill badge-primary">2</span></div>
-                    <div class="cart-dropdown onhover-show-div">
-                        <h6 class="f-18 mb-0 dropdown-title">Cart</h6>
-                        <ul>
-                            <li>
-                                <div class="media"><img class="img-fluid b-r-5 me-3 img-60"
-                                                        src="assets/backend/provider/assets/images/other-images/cart-img.jpg"
-                                                        alt="">
-                                    <div class="media-body"><span>Furniture Chair for Home</span>
-                                        <div class="qty-box">
-                                            <div class="input-group"><span class="input-group-prepend">
-                                <button class="btn quantity-left-minus" type="button" data-type="minus"
-                                        data-field="">-</button></span>
-                                                <input class="form-control input-number" type="text" name="quantity"
-                                                       value="1"><span class="input-group-prepend">
-                                <button class="btn quantity-right-plus" type="button" data-type="plus"
-                                        data-field="">+</button></span>
-                                            </div>
-                                        </div>
-                                        <h6 class="font-primary">$500</h6>
-                                    </div>
-                                    <div class="close-circle"><a class="bg-danger" href="#"><i data-feather="x"></i></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media"><img class="img-fluid b-r-5 me-3 img-60"
-                                                        src="assets/backend/provider/assets/images/other-images/cart-img.jpg"
-                                                        alt="">
-                                    <div class="media-body"><span>Furniture Chair for Home</span>
-                                        <div class="qty-box">
-                                            <div class="input-group"><span class="input-group-prepend">
-                                <button class="btn quantity-left-minus" type="button" data-type="minus"
-                                        data-field="">-</button></span>
-                                                <input class="form-control input-number" type="text" name="quantity"
-                                                       value="1"><span class="input-group-prepend">
-                                <button class="btn quantity-right-plus" type="button" data-type="plus"
-                                        data-field="">+</button></span>
-                                            </div>
-                                        </div>
-                                        <h6 class="font-primary">$500.00</h6>
-                                    </div>
-                                    <div class="close-circle"><a class="bg-danger" href="#"><i data-feather="x"></i></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="total">
-                                <h6 class="mb-0">Order Total : <span class="f-right">$1000.00</span></h6>
-                            </li>
-                            <li class="text-center"><a class="d-block mb-3 view-cart f-w-700" href="cart.html">Go to
-                                    your cart</a><a class="btn btn-primary view-checkout" href="checkout.html">Checkout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="onhover-dropdown"><i data-feather="message-square"></i>
-                    <div class="chat-dropdown onhover-show-div">
-                        <h6 class="f-18 mb-0 dropdown-title">Messages</h6>
-                        <ul class="py-0">
-                            <li>
-                                <div class="media"><img class="img-fluid b-r-5 me-2"
-                                                        src="assets/backend/provider/assets/images/user/1.jpg"
-                                                        alt="">
-                                    <div class="media-body">
-                                        <h6>Teressa</h6>
-                                        <p>Reference site about Lorem Ipsum, give information on its origins.</p>
-                                        <p class="f-8 font-primary mb-0">3 hours ago</p>
-                                    </div>
-                                    <span class="badge rounded-circle badge-primary">2</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media"><img class="img-fluid b-r-5 me-2"
-                                                        src="assets/backend/provider/assets/images/user/2.jpg"
-                                                        alt="">
-                                    <div class="media-body">
-                                        <h6>Kori Thomas</h6>
-                                        <p>Lorem Ipsum is simply dummy give information on its origins....</p>
-                                        <p class="f-8 font-primary mb-0">1 hr ago</p>
-                                    </div>
-                                    <span class="badge rounded-circle badge-primary">2</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media"><img class="img-fluid b-r-5 me-2"
-                                                        src="assets/backend/provider/assets/images/user/14.png"
-                                                        alt="">
-                                    <div class="media-body">
-                                        <h6>Ain Chavez</h6>
-                                        <p>Lorem Ipsum is simply dummy...</p>
-                                        <p class="f-8 font-primary mb-0">32 mins ago</p>
-                                    </div>
-                                    <span class="badge rounded-circle badge-primary">2</span>
-                                </div>
-                            </li>
-                            <li class="text-center"><a class="f-w-700" href="#">View All </a></li>
-                        </ul>
-                    </div>
-                </li>
                 <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
                             data-feather="maximize"></i></a></li>
                 <li class="profile-nav onhover-dropdown p-0 me-0">
                     <div class="media profile-media"><img class="b-r-10"
-                                                          src="assets/backend/provider/assets/images/dashboard/profile.jpg"
+                                                          src="{{asset('assets/backend/provider/assets/images/dashboard/profile.jpg')}}"
                                                           alt="">
                         <div class="media-body"><span>{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
                             <p class="mb-0 font-roboto">Provider <i class="middle fa fa-angle-down"></i></p>
