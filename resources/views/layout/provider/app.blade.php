@@ -9,9 +9,9 @@
     <link rel="shortcut icon" href="{{URL::asset('assets/backend/provider/assets/images/favicon.png')}}" type="image/x-icon">
     <title>Provider Dashboard</title>
     <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@800&display=swap"
           rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/font-awesome.css')}}">
     <!-- ico-font-->
@@ -27,13 +27,10 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/animate.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/chartist.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/date-picker.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/owlcarousel.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/prism.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/date-picker.css')}}">
-    <!-- the fileinput plugin styling CSS file -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/backend/provider/assets/css/vendors/jsgrid.css')}}">
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/bootstrap.css')}}">
@@ -42,6 +39,11 @@
     <link id="color" rel="stylesheet" href="{{URL::asset('assets/backend/provider/assets/css/color-1.css')}}" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/responsive.css')}}">
+    {{--bootstrap-fileinput--}}
+    <link href="{{asset('assets/bootstrap-fileinput/css/fileinput.css')}}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/bootstrap-fileinput/themes/explorer-fa5/theme.css')}}" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" crossorigin="anonymous">
 </head>
 <body>
 <!-- loader starts-->
@@ -80,16 +82,10 @@
                 </div>
             </div>
         </footer>
-        <script>
-            // initialize plugin with defaults
-            $("#input-id").fileinput();
-            // with plugin options
-            $("#input-id").fileinput({'showUpload':false, 'previewFileType':'any'});
-        </script>
     </div>
 </div>
 <!-- latest jquery-->
-<script src="{{URL::asset('assets/backend/provider/assets/js/jquery-3.5.1.min.js')}}"></script>
+<script src="{{URL::asset('assets/backend/provider/assets/js/jquery-3.6.0.min.js')}}"></script>
 <!-- Bootstrap js-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
 <!-- feather icon js-->
@@ -101,14 +97,11 @@
 <!-- Sidebar jquery-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/config.js')}}"></script>
 <!-- Plugins JS start-->
-{{--<script src="{{URL::asset('assets/backend/provider/assets/js/dashboard/default.js')}}"></script>--}}
 <script src="{{URL::asset('assets/backend/provider/assets/js/sidebar-menu.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/rating/jquery.barrating.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/rating/rating-script.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/owlcarousel/owl.carousel.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/ecommerce.js')}}"></script>
-<script src="{{URL::asset('assets/backend/provider/assets/js/product-list-custom.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/chart/chartist/chartist.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/tooltip-init.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/chart/chartist/chartist-plugin-tooltip.js')}}"></script>
@@ -121,39 +114,36 @@
 <script src="{{URL::asset('assets/backend/provider/assets/js/datepicker/date-picker/datepicker.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/datepicker/date-picker/datepicker.en.js')}}"></script>
 <script src="{{URL::asset('assets/backend/provider/assets/js/datepicker/date-picker/datepicker.custom.js')}}"></script>
-{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/handlebars.js')}}"></script>--}}
-{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.bundle.js')}}"></script>--}}
-{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead/typeahead.custom.js')}}"></script>--}}
-{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/handlebars.js')}}"></script>--}}
-{{--<script src="{{URL::asset('assets/backend/provider/assets/js/typeahead-search/typeahead-custom.js')}}"></script>--}}
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/buffer.min.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/filetype.min.js" type="text/javascript"></script>
 
-<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
-    wish to resize images before upload. This must be loaded before fileinput.min.js -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/piexif.min.js" type="text/javascript"></script>
-
-<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
-    This must be loaded before fileinput.min.js -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/plugins/sortable.min.js" type="text/javascript"></script>
-
-<!-- bootstrap.bundle.min.js below is needed if you wish to zoom and preview file content in a detail modal
-    dialog. bootstrap 5.x or 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-
-<!-- the main fileinput plugin script JS file -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/fileinput.min.js"></script>
-
-<!-- following theme script is needed to use the Font Awesome 5.x theme (`fa5`). Uncomment if needed. -->
-<!-- script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/themes/fa5/theme.min.js"></script -->
-
-<!-- optionally if you need translation for your language then include the locale file as mentioned below (replace LANG.js with your language locale) -->
-<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.0/js/locales/LANG.js"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/plugins/buffer.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/plugins/filetype.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/plugins/piexif.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/plugins/sortable.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/fileinput.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/locales/fr.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/locales/es.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/js/locales/vi.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/themes/gly/theme.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/themes/fa5/theme.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/bootstrap-fileinput/themes/explorer-fa5/theme.js')}}" type="text/javascript"></script>
+<script src="{{asset('assets/backend/provider/assets/js/jsgrid/jsgrid.min.js')}}"></script>
+<script src="{{asset('assets/backend/provider/assets/js/jsgrid/griddata.js')}}"></script>
+<script src="{{asset('assets/backend/provider/assets/js/jsgrid/jsgrid.js')}}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/script.js')}}"></script>
 {{--<script src="{{URL::asset('assets/backend/provider/assets/js/theme-customizer/customizer.js')}}"></script>--}}
 <!-- login js-->
 <!-- Plugin used-->
+<script type="text/javascript">
+    $('#format-file-create-post').fileinput({
+        uploadUrl: '#',
+        theme: 'fa',
+        language: 'vi',
+        showUpload: false,
+        allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
+        maxFileSize: 10000,
+    });
+</script>
 </body>
 </html>

@@ -5,13 +5,13 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Service Edit</h3>
+                        <h3 class="txt-primary">Thay đổi dịch vụ</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('provider.index') }}"><i data-feather="home"></i></a></li>
                             <li class="breadcrumb-item">Provider</li>
-                            <li class="breadcrumb-item active">Services Edit</li>
+                            <li class="breadcrumb-item active">Thay đổi dịch vụ</li>
                         </ol>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Services Edit {{ $editService->name }}</h5>
+                            <h5>Thay đổi {{ $editService->name }}</h5>
                         </div>
                         <form class="form theme-form" action="{{ route('provider.services.update', $editService->id) }}" method="post">
                             @csrf
@@ -91,7 +91,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <div>
-                                            <label class="form-label" for="exampleFormControlTextarea4">Example textarea</label>
+                                            <label class="form-label" for="exampleFormControlTextarea4">Ghi chú</label>
                                             <textarea name="note" class="form-control" id="exampleFormControlTextarea4" rows="2">{{ $editService->note }}</textarea>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
                             </div>
                             <div class="card-footer text-end">
                                 <button class="btn btn-primary" type="submit">Thay đổi</button>
-                                <a class="btn btn-light" href="{{ route('provider.services.list') }}">Hủy</a>
+                                <a class="btn btn-danger" href="{{ route('provider.services.list') }}">Hủy</a>
                             </div>
                         </form>
                     </div>

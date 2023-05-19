@@ -46,8 +46,10 @@ Route::group(['prefix' => 'provider', 'middleware' => ['provider']], function ()
     Route::get('posts', [ProviderController::class, 'posts'])->name('provider.posts_list');
     Route::get('posts-create', [PostsController::class, 'postsCreate'])->name('provider.posts.create');
     Route::post('posts-store', [PostsController::class, 'postsStore'])->name('provider.posts.store');
-    Route::get('posts-edit/{id}', [PostsController::class, 'postsEdit'])->name('provider.posts.edit');
-    Route::delete('posts-delete/{id}', [PostsController::class, 'postsDelete'])->name('provider.posts.delete');
+    Route::get('posts-edit/{id}', [PostsController::class, 'postsEdit'])->name('provider.post.edit');
+    Route::delete('posts-delete/{id}', [PostsController::class, 'postsDelete'])->name('provider.post.delete');
+    Route::put('posts-hide/{id}', [PostsController::class, 'postHide'])->name('provider.post.hide');
+    Route::put('posts-show/{id}', [PostsController::class, 'postShow'])->name('provider.post.show');
     Route::get('services-list', [RoomController::class, 'serviceList'])->name('provider.services.list');
     Route::get('services-create', [RoomController::class, 'serviceCreate'])->name('provider.services.create');
     Route::post('services-store', [RoomController::class, 'serviceStore'])->name('provider.services.store');

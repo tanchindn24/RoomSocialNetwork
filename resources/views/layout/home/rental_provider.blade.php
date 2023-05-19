@@ -15,11 +15,19 @@
                 @foreach($provider as $value)
                 <div class="card-1">
                     <figure class="img-hover-scale overflow-hidden">
-                        <a href="{{ route('seeker.chat.provider.id', $value->id) }}">
-                            <img style="width: 80px;height: 80px;" src="{{asset("/assets/backend/provider/assets/images/avatar/$value->avatar")}}" alt=""/></a>
+                        @if (Auth::check() && Auth::user()->roles === 3)
+                            <a href="{{ route('seeker.chat.provider.id', $value->id) }}"></a>
+                        @else
+                            <a href="#"></a>
+                        @endif
+                            <img style="width: 80px;height: 80px;" src="{{asset("/assets/backend/provider/assets/images/avatar/$value->avatar")}}" alt=""/>
                     </figure>
                     <h6>
+                        @if (Auth::check() && Auth::user()->roles === 3)
                         <a href="{{ route('seeker.chat.provider.id', $value->id) }}"> {{ $value->name }}<br/></a>
+                        @else
+                            <a href="#">{{ $value->name }}</a>
+                        @endif
                     </h6>
                 </div>
                 @endforeach

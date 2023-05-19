@@ -32,7 +32,6 @@
                                     <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Ảnh</th>
                                         <th>Tiêu đề</th>
                                         <th>Mục bài viết</th>
                                         <th>Người đăng</th>
@@ -54,9 +53,9 @@
                                                         <a class="btn btn-success btn-sm" type="button" href="{{ route('admin.post.active', $value->id) }}" data-original-title="btn btn-danger btn-xs" title="">Duyệt</a>
                                                 @endif
                                             </td>
-                                            <td class="sorting_1">
-                                                <image style="width:64px;height:64px;" src="{{asset("/images/posts/$value->image")}}"></image>
-                                            </td>
+{{--                                            <td class="sorting_1">--}}
+{{--                                                <image style="width:64px;height:64px;" src="{{asset("/images/posts/$value->image")}}"></image>--}}
+{{--                                            </td>--}}
                                             <td>{{ $value->title }}</td>
                                             <td>{{ $value->bltCategory->name }}</td>
                                             <td>{{ $value->bltUser->name }}</td>

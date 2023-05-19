@@ -24,9 +24,10 @@
                                 <div class="product-cart-wrap mb-30">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
+                                            @php $images = json_decode($value->image); $first_image = reset($images); @endphp
                                             <a href="#">
-                                                <img class="default-img" src="{{asset("/images/posts/$value->image")}}" alt="" />
-                                                <img class="hover-img" src="{{asset("/images/posts/$value->image")}}" alt="" />
+                                                <img class="default-img" src="{{asset("/images/posts/$first_image")}}" alt="" />
+                                                <img class="hover-img" src="{{asset("/images/posts/$first_image")}}" alt="" />
                                             </a>
                                         </div>
                                     </div>
@@ -38,7 +39,7 @@
                                         <div>
                                             <span class="font-small text-muted">By <a href="vendor-details-1.html">{{ $value->bltUser->name }}</a></span>
                                         </div>
-                                        @if (Auth::check() && Auth::user()->role === 3)
+                                        @if (Auth::check() && Auth::user()->roles === 3)
                                         <div class="product-card-bottom">
                                             <div class="add-cart">
                                                 <a class="add" href="{{ route('seeker.chat.provider.id', $value->user_id) }}"><i class="fi-rs-box mr-5"></i> Chat </a>

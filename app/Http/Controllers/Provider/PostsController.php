@@ -20,17 +20,19 @@ class PostsController extends Controller
         return view('provider.posts.create', compact('listCategory'));
     }
 
-    public function postsStore(Request $request)
+    public function postsStore(Request $request): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
     {
 
-        $name_image = "";
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $name = time(). '.' .$file->getClientOriginalExtension();
-            $path = $file->move(public_path('images/posts'), $name);
-            $name_image = $name;
+        if ($request->hasFile('images')) {
+            $images = [];
+            foreach ($request->file('images') as $file) {
+                $name = time(). '-' .Str::slug($request->title). '-'. rand(0,99). '.' .$file->getClientOriginalExtension();
+                $path = $file->move(public_path('images/posts'), $name);
+                $images[] = $name;
+            }
+            $images_json = json_encode($images);
         } else {
-            $name_image = "no_image.jpg";
+            $images_json = "no-image.jpg";
         }
 
         $storePost = new Posts();
@@ -44,11 +46,50 @@ class PostsController extends Controller
         $storePost->area = $request->area;
         $storePost->view = 0;
         $storePost->status = 2;
-        $storePost->image = $name_image;
+        $storePost->image = $images_json;
 
         $storePost->save();
 
         return redirect('/provider/posts')
             ->with('notification', 'Post created successfully, please wait for admin approval');
+    }
+
+    public function postsEdit($id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        $editPost = Posts::find($id);
+
+        $listCategory = PostCategories::where('status', 1)
+            ->get();
+
+        return view('provider.posts.edit', compact('editPost', 'listCategory'));
+    }
+
+    public function postsDelete($id): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
+        $deletePost = Posts::findOrFail($id);
+        $deletePost->delete();
+
+        return redirect('provider/posts')
+            ->with('notification', 'Post deleted successfully');
+    }
+
+    public function postHide($id): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
+        $hidePost = Posts::findOrFail($id);
+        $hidePost->status = 2;
+        $hidePost->save();
+
+        return redirect('provider/posts')
+            ->with('notification', 'Post hide successfully');
+    }
+
+    public function postShow($id): \Illuminate\Foundation\Application|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse|\Illuminate\Contracts\Foundation\Application
+    {
+        $showPost = Posts::findOrFail($id);
+        $showPost->status = 1;
+        $showPost->save();
+
+        return redirect('provider/posts')
+            ->with('notification', 'Post show successfully');
     }
 }

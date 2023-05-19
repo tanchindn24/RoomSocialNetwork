@@ -12,12 +12,12 @@ class Posts extends Model
 
     protected $table = "posts";
 
-    public function bltCategory()
+    public function Category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(PostCategories::class, 'category_id', 'id');
     }
 
-    public function bltUser()
+    public function User(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
