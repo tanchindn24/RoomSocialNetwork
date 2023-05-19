@@ -485,31 +485,21 @@
         <div class="home-slide-cover">
             <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
                 <div class="single-hero-slider rectangle single-animation-wrap"
-                     style="background-image: url(assets/frontend/imgs/slider/slider-5.png)">
+                     style="background-image: url(assets/frontend/imgs/slider/slide-home-1.jpg)">
                     <div class="slider-content">
-                        <h1 class="display-2 mb-40">
-                            Don’t miss<br/>
-                            amazing deals
+                        <h1 class="display-2 mb-40 text-success">
+                           Tìm trọ<br/>
                         </h1>
-                        <p class="mb-65">Sign up for the daily newsletter</p>
-                        <form class="form-subcriber d-flex">
-                            <input type="email" placeholder="Your emaill address"/>
-                            <button class="btn" type="submit">Subscribe</button>
-                        </form>
+                        <p class="mb-65 text-danger">Nhanh chóng - An Toàn - Tiện tích</p>
                     </div>
                 </div>
                 <div class="single-hero-slider rectangle single-animation-wrap"
-                     style="background-image: url(assets/frontend/imgs/slider/slider-6.png)">
+                     style="background-image: url(assets/frontend/imgs/slider/slide-home-2.jpg)">
                     <div class="slider-content">
-                        <h1 class="display-2 mb-40">
-                            Fresh Vegetables<br/>
-                            Big discount
+                        <h1 class="display-2 mb-40 text-primary">
+                            Quản lý trọ<br/>
                         </h1>
-                        <p class="mb-65">Save up to 50% off on your first order</p>
-                        <form class="form-subcriber d-flex">
-                            <input type="email" placeholder="Your emaill address"/>
-                            <button class="btn" type="submit">Subscribe</button>
-                        </form>
+                        <p class="mb-65 text-danger">Đơn giản - Dễ sử dụng - Chính xác</p>
                     </div>
                 </div>
             </div>

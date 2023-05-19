@@ -33,11 +33,11 @@
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="shop-grid-right.html">{{ $value->bltCategory->name }}</a>
+                                            <a href="shop-grid-right.html">{{ $value->Category->name }}</a>
                                         </div>
                                         <h2><a href="#">{{ $value->title }}</a></h2>
                                         <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">{{ $value->bltUser->name }}</a></span>
+                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">{{ $value->User->name }}</a></span>
                                         </div>
                                         @if (Auth::check() && Auth::user()->roles === 3)
                                         <div class="product-card-bottom">

@@ -19,36 +19,35 @@
                         </ul>
                     </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.chat.seeker') }}"><i data-feather="message-circle"></i><span>Chat</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('provider.posts_list')}}"><i data-feather="layers"></i><span>Posts</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Room</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.services.list') }}"><i data-feather="git-pull-request"> </i><span>Service</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Electrical Parameters</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Water Parameters</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Incurred</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Calculate</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Coupon</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>History sent</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Work</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('provider.posts_list')}}"><i data-feather="layers"></i><span>Bài viết</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="grid"></i><span>Phòng</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.services.list') }}"><i data-feather="package"></i><span>Dịch vụ</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="cloud-lightning"></i><span>Chỉ số điện</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="cloud-rain"></i><span>Chỉ số nước</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Phát sinh</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="dollar-sign"></i><span>Tính tiền</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="credit-card"></i><span>Phiếu chi</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="message-square"></i><span>Lịch sử gửi email/SMS</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="list"></i><span>Công việc</span></a></li>
                     <li class="sidebar-list">
-                        <label class="badge badge-light-primary">9</label><a class="sidebar-link sidebar-title" href="#"><i data-feather="home"></i><span>Report</span></a>
+                        <label class="badge badge-light-primary">9</label><a class="sidebar-link sidebar-title" href="#"><i data-feather="tag"></i><span>Báo cáo</span></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{route('provider.index')}}">Report the loss</a></li>
-                            <li><a href="{{route('provider.index')}}">List of guest rooms</a></li>
-                            <li><a href="{{route('provider.index')}}">List of guests renting a room</a></li>
-                            <li><a href="{{route('provider.index')}}">List of guests with room debt</a></li>
-                            <li><a href="{{route('provider.index')}}">The guest list is about to end the contract</a></li>
-                            <li><a href="{{route('provider.index')}}">List of guests to deposit</a></li>
-                            <li><a href="{{route('provider.index')}}">Revenue by service</a></li>
-                            <li><a href="{{route('provider.index')}}">List of members by room</a></li>
-                            <li><a href="{{route('provider.index')}}">Invoice details</a></li>
+                            <li><a href="{{route('provider.index')}}">Báo cáo lời lỗ</a></li>
+                            <li><a href="{{route('provider.index')}}">Danh sách khách thuê phòng</a></li>
+                            <li><a href="{{route('provider.index')}}">Danh sách khách đang thuê phòng</a></li>
+                            <li><a href="{{route('provider.index')}}">Danh sách khách nợ tiền phòng</a></li>
+                            <li><a href="{{route('provider.index')}}">Danh sách khách sắp hết hợp đồng</a></li>
+                            <li><a href="{{route('provider.index')}}">Danh sách khách thuê đặt cọc</a></li>
+                            <li><a href="{{route('provider.index')}}">Doanh thu theo dịch vụ</a></li>
+                            <li><a href="{{route('provider.index')}}">Danh sách thành viên theo phòng</a></li>
+                            <li><a href="{{route('provider.index')}}">Chi tiết hóa đơn</a></li>
                         </ul>
                     </li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Staff</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Setting</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Property</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Coupon</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Piles keep room</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Change password</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="users"></i><span>Nhân viên</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="settings"></i><span>Thiết lập</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="dollar-sign"></i><span>Tài sản</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="file-text"></i><span>Phiếu thu</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="feather"></i><span>Cọc giữ phòng</span></a></li>
 {{--                    <li class="sidebar-list">--}}
 {{--                        <label class="badge badge-light-danger">Latest</label><a class="sidebar-link sidebar-title link-nav" href="kanban.html"><i data-feather="monitor"> </i><span>kanban Board</span></a>--}}
 {{--                    </li>--}}
