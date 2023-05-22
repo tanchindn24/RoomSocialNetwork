@@ -15,13 +15,4 @@ class ProviderController extends Controller
     {
         return view('provider.index');
     }
-
-    public function posts() :View
-    {
-
-        $listPost = Posts::where('user_id', Auth::id())
-            ->get();
-
-        return view('provider.posts.list', compact('listPost'));
-    }
 }

@@ -92,6 +92,7 @@
                 </div>
             </div>
         </div>
+        {!! $listPost->links() !!}
         <!-- Container-fluid Ends-->
     </div>
 @endsection

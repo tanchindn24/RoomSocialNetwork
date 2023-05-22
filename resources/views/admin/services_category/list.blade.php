@@ -5,14 +5,14 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-6">
-                        <h3>Services Category</h3>
+                        <h3>Danh sách loại dịch vụ</h3>
                     </div>
                     <div class="col-6">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}"> <i
                                         data-feather="home"></i></a></li>
                             <li class="breadcrumb-item">Admin</li>
-                            <li class="breadcrumb-item active">Services Category</li>
+                            <li class="breadcrumb-item active">Danh sách loại dịch vụ</li>
                         </ol>
                     </div>
                 </div>
@@ -20,56 +20,62 @@
         </div>
         <!-- Container-fluid starts-->
         <div class="container-fluid">
-            @if(session('notification'))
-                <div class="alert alert-danger">
-                    {{ session('notification') }}
-                </div>
+            @if (session('notification'))
+                <script>alert('{{ session('notification') }}');</script>
             @endif
             <div class="row">
                 <!-- Individual column searching (text inputs) Starts-->
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-header">
-                            <h6>Danh sách</h6>
+                            <h6 class="txt-success">Danh sách loại dịch vụ</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive product-table">
-                                <table class="display" id="basic-1">
-                                    <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Tên</th>
-                                        <th>Trạng thái</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($category as $value)
+                        <div class="card-block row">
+                            <div class="col-sm-12 col-lg-12 col-xl-12">
+                                <div class="table-responsive">
+                                    <table class="table" style="text-align: center">
+                                        <thead class="table-primary">
                                         <tr>
-                                            <td>
-                                                @if($value->status == 1)
-                                                    <form id="lock-form-{{ $value->id }}" action="{{ route('admin.serviceCategory.inactive', $value->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button class="btn btn-danger btn-xs" type="submit">Khóa</button>
-                                                    </form>
-                                                @elseif($value->status == 2)
-                                                    <form id="lock-form-{{ $value->id }}" action="{{ route('admin.serviceCategory.active', $value->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <button class="btn btn-success btn-xs" type="submit">Mở</button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                            <td>{{ $value->name }}</td>
-                                            @if($value->status == 1)
-                                                <td class="font-success">Đang Dùng</td>
-                                            @elseif($value->status == 2)
-                                                <td class="font-danger">Khóa</td>
-                                            @endif
+                                            <th></th>
+                                            <th>Tên</th>
+                                            <th>Trạng thái</th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($category as $value)
+                                            <tr>
+                                                <td>
+                                                    @if($value->status == 1)
+                                                        <form id="lock-form-{{ $value->id }}"
+                                                              action="{{ route('admin.serviceCategory.inactive', $value->id) }}"
+                                                              method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button class="btn btn-danger btn-xs" type="submit">Khóa
+                                                            </button>
+                                                        </form>
+                                                    @elseif($value->status == 2)
+                                                        <form id="lock-form-{{ $value->id }}"
+                                                              action="{{ route('admin.serviceCategory.active', $value->id) }}"
+                                                              method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button class="btn btn-success btn-xs" type="submit">Mở
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $value->name }}</td>
+                                                @if($value->status == 1)
+                                                    <td class="font-success">Đang Dùng</td>
+                                                @elseif($value->status == 2)
+                                                    <td class="font-danger">Khóa</td>
+                                                @endif
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

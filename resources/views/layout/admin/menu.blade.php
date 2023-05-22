@@ -42,23 +42,23 @@
                         </ul>
                     </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
-                                data-feather="list"></i><span>Categories</span></a>
+                                data-feather="list"></i><span>Danh mục bài viết</span></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{route('admin.category.list')}}">List</a></li>
-                            <li><a href="{{route('admin.category.list.add')}}">Add</a></li>
+                            <li><a href="{{route('admin.category.list')}}">Danh sách</a></li>
+                            <li><a href="{{route('admin.category.list.add')}}">Thêm</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title" href="#"><i
-                                data-feather="box"></i><span>Posts</span></a>
+                                data-feather="box"></i><span>Bài viết</span></a>
                         <ul class="sidebar-submenu">
-                            <li><a href="{{route('admin.post.list')}}">List</a></li>
+                            <li><a href="{{route('admin.post.list')}}">Danh sách</a></li>
                             <li><a href="user-cards.html">Statistical</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="{{ route('admin.serviceCategory.list') }}">
                             <i data-feather="box"></i>
-                            <span>Service</span></a>
+                            <span>Loại dịch vụ</span></a>
                     </li>
                 </ul>
             </div>

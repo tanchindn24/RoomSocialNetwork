@@ -26,8 +26,8 @@
                                         <div class="product-img product-img-zoom">
                                             @php $images = json_decode($value->image); $first_image = reset($images); @endphp
                                             <a href="#">
-                                                <img class="default-img" src="{{asset("/images/posts/$first_image")}}" alt="" />
-                                                <img class="hover-img" src="{{asset("/images/posts/$first_image")}}" alt="" />
+                                                <img style="height: 180px" class="default-img" src="{{asset("/images/posts/$first_image")}}" alt="" />
+                                                <img style="height: 180px" class="hover-img" src="{{asset("/images/posts/$first_image")}}" alt="" />
                                             </a>
                                         </div>
                                     </div>

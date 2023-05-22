@@ -3,9 +3,11 @@
 use App\Http\Controllers\Admin\AdminPostsController;
 use App\Http\Controllers\Admin\AuthController as AdminAuth;
 use App\Http\Controllers\Admin\ServiceRoomController;
+use App\Http\Controllers\HouseController;
 use App\Http\Controllers\Provider\AuthController as ProviderAuth;
 use App\Http\Controllers\Provider\ProviderConversationChat;
 use App\Http\Controllers\Provider\RoomController;
+use App\Http\Controllers\PublicDataController;
 use App\Http\Controllers\Seeker\AuthController as SeekerAuth;
 use App\Http\Controllers\Seeker\SeekerConversationChat;
 use Illuminate\Support\Facades\Artisan;
@@ -43,19 +45,29 @@ Route::get('provider/logout', [ProviderAuth::class, 'logout'])->name('provider.l
 
 Route::group(['prefix' => 'provider', 'middleware' => ['provider']], function () {
     Route::get('/', [ProviderController::class, 'index'])->name('provider.index');
-    Route::get('posts', [ProviderController::class, 'posts'])->name('provider.posts_list');
+//    Posts
+    Route::get('posts', [PostsController::class, 'posts'])->name('provider.post.list');
     Route::get('posts-create', [PostsController::class, 'postsCreate'])->name('provider.posts.create');
     Route::post('posts-store', [PostsController::class, 'postsStore'])->name('provider.posts.store');
     Route::get('posts-edit/{id}', [PostsController::class, 'postsEdit'])->name('provider.post.edit');
     Route::delete('posts-delete/{id}', [PostsController::class, 'postsDelete'])->name('provider.post.delete');
     Route::put('posts-hide/{id}', [PostsController::class, 'postHide'])->name('provider.post.hide');
     Route::put('posts-show/{id}', [PostsController::class, 'postShow'])->name('provider.post.show');
-    Route::get('services-list', [RoomController::class, 'serviceList'])->name('provider.services.list');
+//    Services
+    Route::get('services-list', [RoomController::class, 'serviceList'])->name('provider.service.list');
     Route::get('services-create', [RoomController::class, 'serviceCreate'])->name('provider.services.create');
     Route::post('services-store', [RoomController::class, 'serviceStore'])->name('provider.services.store');
     Route::get('services-edit/{id}', [RoomController::class, 'serviceEdit'])->name('provider.services.edit');
     Route::put('services-update/{id}', [RoomController::class, 'serviceUpdate'])->name('provider.services.update');
     Route::delete('services-delete/{id}', [RoomController::class, 'serviceDelete'])->name('provider.services.delete');
+//    Room
+    Route::get('/room-list', [RoomController::class, 'roomList'])->name('provider.room.list');
+    Route::get('/room-create', [RoomController::class, 'roomCreate'])->name('provider.room.create');
+    Route::post('/room-store', [RoomController::class, 'roomStore'])->name('provider.room.store');
+//    House
+    Route::get('/house-create', [HouseController::class, 'houseCreate'])->name('provider.house.create');
+    Route::post('/house-store', [HouseController::class, 'houseStore'])->name('provider.house.store');
+//    Conversation Chat
     Route::get('conversation', [ProviderConversationChat::class, 'chatWithSeeker'])->name('provider.chat.seeker');
     Route::get('conversation/chat/{id}', [ProviderConversationChat::class, 'chatWithSeeker'])->name('provider.chat.seeker.id');
     Route::get('conversation/chat-list', [ProviderConversationChat::class, 'getChatList'])->name('provider.chat.list');
@@ -82,6 +94,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::put('service-category-inactive/{id}', [ServiceRoomController::class, 'serviceCategoryInactive'])->name('admin.serviceCategory.inactive');
     Route::put('service-category-active/{id}', [ServiceRoomController::class, 'serviceCategoryActive'])->name('admin.serviceCategory.active');
 });
+
+//PUBLIC DATA
+Route::get('districts-from-province/{id}', [PublicDataController::class, 'getDistricts'])->name('get.districts');
+Route::get('wards-from-district/{id}', [PublicDataController::class, 'getWards'])->name('get.wards');
 // OTHER
 Route::get('/clear-cache', function () {
     Artisan::call('config:cache');

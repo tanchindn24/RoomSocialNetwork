@@ -82,6 +82,8 @@
                     <!-- Individual column searching (text inputs) Ends-->
                 </div>
             </div>
-            <!-- Container-fluid Ends-->
         </div>
+        {!! $service->links() !!}
+        <!-- Container-fluid Ends-->
+    </div>
 @endsection

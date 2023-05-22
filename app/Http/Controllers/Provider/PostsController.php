@@ -12,6 +12,16 @@ use Illuminate\View\View;
 
 class PostsController extends Controller
 {
+
+    public function posts() :View
+    {
+
+        $listPost = Posts::where('user_id', Auth::id())
+            ->paginate(5);
+
+        return view('provider.posts.list', compact('listPost'));
+    }
+
     public function postsCreate() :View
     {
         $listCategory = PostCategories::where('status', 1)

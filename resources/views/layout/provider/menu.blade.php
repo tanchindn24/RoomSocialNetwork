@@ -19,9 +19,9 @@
                         </ul>
                     </li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.chat.seeker') }}"><i data-feather="message-circle"></i><span>Chat</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{route('provider.posts_list')}}"><i data-feather="layers"></i><span>Bài viết</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="grid"></i><span>Phòng</span></a></li>
-                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.services.list') }}"><i data-feather="package"></i><span>Dịch vụ</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.post.list') }}"><i data-feather="layers"></i><span>Bài viết</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.room.list') }}"><i data-feather="grid"></i><span>Phòng</span></a></li>
+                    <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="{{ route('provider.service.list') }}"><i data-feather="package"></i><span>Dịch vụ</span></a></li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="cloud-lightning"></i><span>Chỉ số điện</span></a></li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="cloud-rain"></i><span>Chỉ số nước</span></a></li>
                     <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="file-manager.html"><i data-feather="git-pull-request"> </i><span>Phát sinh</span></a></li>

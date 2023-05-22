@@ -30,7 +30,6 @@
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/owlcarousel.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/prism.css')}}">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/date-picker.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/backend/provider/assets/css/vendors/jsgrid.css')}}">
     <!-- Plugins css Ends-->
     <!-- Bootstrap css-->
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/provider/assets/css/vendors/bootstrap.css')}}">
@@ -67,6 +66,8 @@
     @include('layout.provider.nav_header')
     <!-- Page Header Ends-->
     <!-- Page Body Start-->
+    <!-- latest jquery-->
+    <script src="{{URL::asset('assets/backend/provider/assets/js/jquery-3.6.0.min.js')}}"></script>
     <div class="page-body-wrapper">
         <!-- Page Sidebar Start-->
         @include('layout.provider.menu')
@@ -84,8 +85,7 @@
         </footer>
     </div>
 </div>
-<!-- latest jquery-->
-<script src="{{URL::asset('assets/backend/provider/assets/js/jquery-3.6.0.min.js')}}"></script>
+
 <!-- Bootstrap js-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/bootstrap/bootstrap.bundle.min.js')}}"></script>
 <!-- feather icon js-->
@@ -126,9 +126,6 @@
 <script src="{{asset('assets/bootstrap-fileinput/themes/gly/theme.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/bootstrap-fileinput/themes/fa5/theme.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/bootstrap-fileinput/themes/explorer-fa5/theme.js')}}" type="text/javascript"></script>
-<script src="{{asset('assets/backend/provider/assets/js/jsgrid/jsgrid.min.js')}}"></script>
-<script src="{{asset('assets/backend/provider/assets/js/jsgrid/griddata.js')}}"></script>
-<script src="{{asset('assets/backend/provider/assets/js/jsgrid/jsgrid.js')}}"></script>
 <!-- Plugins JS Ends-->
 <!-- Theme js-->
 <script src="{{URL::asset('assets/backend/provider/assets/js/script.js')}}"></script>

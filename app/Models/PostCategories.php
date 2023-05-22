@@ -11,4 +11,9 @@ class PostCategories extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = ['name', 'slug', 'status'];
+
+    public function Posts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Posts::class, 'category_id', 'id');
+    }
 }

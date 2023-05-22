@@ -17,32 +17,32 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@example.net',
-            'password' => bcrypt('Password'),
+            'password' => bcrypt('password'),
             'roles' => 1,
             'status' => 1,
         ]);
 
         // provider
-        $providerCount = rand(5, 10);
+        $providerCount = rand(10, 20);
         for ($i = 0; $i < $providerCount; $i++)
         {
             User::create([
                 'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => bcrypt('Password'),
+                'email' => 'provider'.$i.'@example.net',
+                'password' => bcrypt('password'),
                 'roles' => 2,
                 'status' => rand(1, 2),
             ]);
         }
 
         // seeker
-        $seekerCount = 30 - 1 - $providerCount;
+        $seekerCount = 40 - 1 - $providerCount;
         for ($i = 0; $i < $seekerCount; $i++)
         {
             User::create([
                 'name' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => bcrypt('Password'),
+                'email' => 'seeker'.$i.'@example.net',
+                'password' => bcrypt('password'),
                 'roles' => 3,
                 'status' => rand(1, 2),
             ]);

@@ -81,7 +81,7 @@
                             </div>
                             <div class="card-footer text-end">
                                 <button class="btn btn-success" type="submit">Thêm</button>
-                                <a class="btn btn-danger" href="{{ route('provider.services.list') }}">Hủy</a>
+                                <a class="btn btn-danger" href="{{ route('provider.service.list') }}">Hủy</a>
                             </div>
                         </form>
                     </div>

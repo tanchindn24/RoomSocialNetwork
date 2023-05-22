@@ -42,7 +42,7 @@ class AdminController extends Controller
 
     public function postList() :View
     {
-        $listPost = Posts::all();
+        $listPost = Posts::paginate(5);
 
         return view('admin.posts.list_post', compact('listPost'));
     }

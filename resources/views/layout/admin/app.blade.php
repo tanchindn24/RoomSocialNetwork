@@ -9,9 +9,9 @@
     <link rel="shortcut icon" href="{{URL::asset('assets/backend/admin/assets/images/favicon.png')}}" type="image/x-icon">
     <title>Admin</title>
     <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@800&display=swap"
           rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{URL::asset('assets/backend/admin/assets/css/font-awesome.css')}}">
     <!-- ico-font-->
@@ -100,74 +100,8 @@
                         </div>
                     </li>
                     <li><span class="header-search"><i data-feather="search"></i></span></li>
-                    <li class="onhover-dropdown">
-                        <div class="notification-box"><i data-feather="bell"> </i><span
-                                class="badge rounded-pill badge-secondary">4 </span></div>
-                        <div class="onhover-show-div notification-dropdown">
-                            <h6 class="f-18 mb-0 dropdown-title">Notitications </h6>
-                            <ul>
-                                <li class="b-l-primary border-4">
-                                    <p>Delivery processing <span class="font-danger">10 min.</span></p>
-                                </li>
-                                <li class="b-l-success border-4">
-                                    <p>Order Complete<span class="font-success">1 hr</span></p>
-                                </li>
-                                <li class="b-l-info border-4">
-                                    <p>Tickets Generated<span class="font-info">3 hr</span></p>
-                                </li>
-                                <li class="b-l-warning border-4">
-                                    <p>Delivery Complete<span class="font-warning">6 hr</span></p>
-                                </li>
-                                <li><a class="f-w-700" href="#">Check all</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="onhover-dropdown">
-                        <div class="notification-box"><i data-feather="star"></i></div>
-                    </li>
                     <li>
                         <div class="mode"><i class="fa fa-moon-o"></i></div>
-                    </li>
-                    <li class="onhover-dropdown"><i data-feather="message-square"></i>
-                        <div class="chat-dropdown onhover-show-div">
-                            <h6 class="f-18 mb-0 dropdown-title">Messages</h6>
-                            <ul class="py-0">
-                                <li>
-                                    <div class="media"><img class="img-fluid b-r-5 me-2"
-                                                            src="{{URL::asset('assets/backend/admin/assets/images/user/1.jpg')}}" alt="">
-                                        <div class="media-body">
-                                            <h6>Teressa</h6>
-                                            <p>Reference site about Lorem Ipsum, give information on its origins.</p>
-                                            <p class="f-8 font-primary mb-0">3 hours ago</p>
-                                        </div>
-                                        <span class="badge rounded-circle badge-primary">2</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="media"><img class="img-fluid b-r-5 me-2"
-                                                            src="{{URL::asset('assets/backend/admin/assets/images/user/2.jpg')}}" alt="">
-                                        <div class="media-body">
-                                            <h6>Kori Thomas</h6>
-                                            <p>Lorem Ipsum is simply dummy give information on its origins....</p>
-                                            <p class="f-8 font-primary mb-0">1 hr ago</p>
-                                        </div>
-                                        <span class="badge rounded-circle badge-primary">2</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="media"><img class="img-fluid b-r-5 me-2"
-                                                            src="{{URL::asset('assets/backend/admin/assets/images/user/14.png')}}" alt="">
-                                        <div class="media-body">
-                                            <h6>Ain Chavez</h6>
-                                            <p>Lorem Ipsum is simply dummy...</p>
-                                            <p class="f-8 font-primary mb-0">32 mins ago</p>
-                                        </div>
-                                        <span class="badge rounded-circle badge-primary">2</span>
-                                    </div>
-                                </li>
-                                <li class="text-center"><a class="f-w-700" href="#">View All </a></li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i
                                 data-feather="maximize"></i></a></li>
@@ -225,7 +159,6 @@
 <!-- Plugins JS start-->
 <script src="{{URL::asset('assets/backend/admin/assets/js/dashboard/default.js')}}"></script>
 <script src="{{URL::asset('assets/backend/admin/assets/js/sidebar-menu.js')}}"></script>
-<script src="{{URL::asset('assets/backend/admin/assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::asset('assets/backend/admin/assets/js/rating/jquery.barrating.js')}}"></script>
 <script src="{{URL::asset('assets/backend/admin/assets/js/rating/rating-script.js')}}"></script>
 <script src="{{URL::asset('assets/backend/admin/assets/js/owlcarousel/owl.carousel.js')}}"></script>
