@@ -6,12 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "google/cloud-firestore": "^1.32",
+        "grpc/grpc": "^1.52",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
+        "laravel/passport": "^11.8",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8",
-        "google/cloud-firestore": "^1.32",
-        "grpc/grpc": "^1.52"
+        "laravel/tinker": "^2.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

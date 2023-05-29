@@ -64,7 +64,7 @@ class AuthController extends Controller
     {
         $rule = [
             'name' => 'required|min:1|max:20',
-            'email' => 'required',
+            'email' => 'required|unique:users',
             'password' => 'required|min:7|max:14|confirmed'
         ];
 
@@ -73,6 +73,7 @@ class AuthController extends Controller
             'name.min' => 'last name 1 to 20 characters',
             'name.max' => 'last name 1 to 20 characters',
             'email.required' => 'Email is required',
+            'email.unique' => 'Email is already taken',
             'password.required' => 'Password is required',
             'password.min' => 'Password must be between 7 and 14 characters',
             'password.max' => 'Password must be between 7 and 14 characters',

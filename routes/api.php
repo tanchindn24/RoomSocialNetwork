@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\PublicApi\ApiCategoryPostController;
 use App\Http\Controllers\PublicApi\ApiPostsController;
 use Illuminate\Http\Request;
@@ -23,3 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/posts', [ApiPostsController::class, 'getPosts']);
 Route::get('/category', [ApiCategoryPostController::class, 'getCategory']);
 Route::get('/post/{id}', [ApiPostsController::class, 'getDetailPost']);
+
+Route::post('/register', [AuthApiController::class, 'register']);
+Route::post('/login', [AuthApiController::class, 'login']);
+Route::middleware('auth:api')->post('/logout', [AuthApiController::class, 'logout']);
